@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guía GitHub.io — Setup y explicación</title>
+<style>
+  :root { --accent: #2cd326; --red: #e63946; --bg: #f4f4f9; }
+  * { box-sizing: border-box; }
+  body { font-family: Arial, sans-serif; margin: 0; background: var(--bg); color: #222; line-height: 1.6; }
+  header { background: #1d3557; color: #fff; padding: 2rem 1.5rem; text-align: center; }
+  header h1 { margin: 0 0 .5rem; }
+  header p { margin: 0; opacity: .8; }
+  main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+  section { background: #fff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,.1); padding: 1.5rem 2rem; margin-bottom: 2rem; }
+  h2 { color: #1d3557; border-bottom: 3px solid var(--accent); padding-bottom: .4rem; }
+  h3 { color: #457b9d; margin-top: 1.8rem; }
+  pre { background: #222; color: #eee; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: .95rem; }
+  code { font-family: Consolas, Monaco, monospace; }
+  p code, li code { background: #e8e8ef; padding: .1rem .35rem; border-radius: 4px; }
+  ul li { margin-bottom: .4rem; }
+  .tip { background: #e8f8e8; border-left: 4px solid var(--accent); padding: .8rem 1rem; border-radius: 0 6px 6px 0; margin: 1rem 0; }
+  .warn { background: #fdecea; border-left: 4px solid var(--red); padding: .8rem 1rem; border-radius: 0 6px 6px 0; margin: 1rem 0; }
+  table { border-collapse: collapse; width: 100%; margin: 1rem 0; }
+  th, td { border: 1px solid #ccc; padding: .5rem .8rem; text-align: left; }
+  th { background: #1d3557; color: #fff; }
+  .verde { color: var(--accent); font-weight: bold; }
+  .rojo { color: var(--red); font-weight: bold; }
+  footer { text-align: center; padding: 1rem; color: #666; font-size: .9rem; }
+  @media print { body { background: #fff; } section { box-shadow: none; border: 1px solid #ddd; } }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Guía del sitio GitHub.io</h1>
+  <p>Cómo copiar tus proyectos a otro PC + explicación de TypeScript (para clase)</p>
+</header>
+
+<main>
+
+<!-- ================= PARTE 1 ================= -->
+<section>
+<h2>Parte 1 — Guía para nuevo PC</h2>
+
+<h3>1. Instalar git (y Node.js opcional)</h3>
+<pre>sudo apt install git
+# Node.js solo si vas a compilar TypeScript:
+# https://nodejs.org (LTS)</pre>
+
+<h3>2. Configurar tu identidad (una sola vez)</h3>
+<pre>git config --global user.name "escomz"
+git config --global user.email "32931135+escomz@users.noreply.github.com"</pre>
+<div class="tip">El email <code>32931135+escomz@users.noreply.github.com</code> es el noreply de tu cuenta. GitHub bloquea los pushes con tu correo real por privacidad.</div>
+
+<h3>3. Clonar tu repositorio</h3>
+<p>Opción SSH (sin escribir contraseñas cada vez):</p>
+<pre>git clone git@github.com:escomz/escomz.github.io.git
+cd escomz.github.io</pre>
+<p>Opción HTTPS (piden usuario y token):</p>
+<pre>git clone https://github.com/escomz/escomz.github.io.git</pre>
+
+<h3>4. Compilar el TypeScript del proyecto</h3>
+<pre>cd escomz.github.io/proyecto1
+npm install          # instala typescript (solo la primera vez)
+npm run build        # src/script.ts → compiled/script.js
+npm run watch        # opcional: recompila al guardar cambios</pre>
+
+<h3>5. Publicar cambios</h3>
+<pre>git add .
+git commit -m "Descripción del cambio"
+git push</pre>
+<div class="tip">GitHub Pages publica los cambios solos en ~1 minuto en <strong>https://escomz.github.io/proyecto1/</strong></div>
+
+<h3>6. Configurar SSH desde cero</h3>
+<pre>ssh-keygen -t ed25519 -C "tu correo"
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+cat ~/.ssh/id_ed25519.pub</pre>
+<ul>
+  <li>Copia todo lo que empiece por <code>ssh-ed25519...</code></li>
+  <li>Pégalo en <a href="https://github.com/settings/keys">github.com/settings/keys</a> → <em>New SSH key</em></li>
+  <li>Prueba: <code>ssh -T git@github.com</code> → debe decir <code>Hi escomz!</code></li>
+</ul>
+
+</section>
+
+<!-- ================= PARTE 2 ================= -->
+<section>
+<h2>Parte 2 — Explicación de clase</h2>
+
+<h3>El problema: el navegador no ejecuta TypeScript</h3>
+<p>TypeScript (TS) es un <strong>superconjunto de JavaScript</strong>: añade tipos y funciones, pero el navegador solo entiende JS. Si cargas un <code>.ts</code> con <code>&lt;script&gt;</code>, el navegador lo ignora y la página no hace nada.</p>
+<pre>src/script.ts  ──(tsc)──▶  compiled/script.js  ──▶  el navegador lo ejecuta
+ (fuente, TS)            (traducción, JS)</pre>
+
+<h3>Las herramientas creadas</h3>
+<table>
+  <tr><th>Fichero</th><th>Función</th></tr>
+  <tr><td><code>package.json</code></td><td>Define el proyecto y el comando <code>npm run build</code> / <code>npm run watch</code></td></tr>
+  <tr><td><code>tsconfig.json</code></td><td>Dice a <code>tsc</code>: lee de <code>src/</code>, escribe en <code>compiled/</code>, con <code>strict: true</code> (tipos obligatorios)</td></tr>
+</table>
+
+<h3>El bug: dos scripts, un mismo elemento</h3>
+<p>JavaScript y TypeScript escribían ambos en el mismo <code>&lt;h1 id="mensaje"&gt;</code>. Orden real de ejecución:</p>
+<ol>
+  <li>El navegador lee el HTML de arriba abajo</li>
+  <li>El script compilado de TS se ejecuta <strong>ya mismo</strong> → escribe su mensaje</li>
+  <li><code>script.js</code> usa <code>DOMContentLoaded</code>, así que espera a que cargue todo</li>
+  <li>Al terminar la carga, <strong>sobrescribe</strong> el mensaje del TS</li>
+</ol>
+<div class="warn">Resultado: el mensaje TypeScript nunca se veía, aunque el código era correcto.</div>
+
+<h3>La solución: un elemento por script</h3>
+<table>
+  <tr><th>Script</th><th>Elemento</th><th>Mensaje</th></tr>
+  <tr><td><code>script.js</code> (JS a mano)</td><td><code>#mensaje</code></td><td class="rojo">Hola Mundo (JavaScript)</td></tr>
+  <tr><td><code>src/script.ts</code> (compilado)</td><td><code>#mensaje-ts</code></td><td class="verde">Hola Mundo (TypeScript)</td></tr>
+</table>
+<p>Cada script tiene su propio <code>h1</code>: conviven en pantalla y se distingue de un vistazo qué genera cada lenguaje.</p>
+
+<h3>Ideas clave para recordar</h3>
+<ul>
+  <li><strong>Compilar</strong> = traducir TS a JS con <code>tsc</code> (<code>npm run build</code>)</li>
+  <li>Tras editar el <code>.ts</code> hay que <strong>recompilar</strong>, recargar no basta</li>
+  <li><code>DOMContentLoaded</code> retrasa la ejecución hasta que el HTML está cargado</li>
+  <li>Si dos scripts tocan el mismo elemento, el último en ejecutarse gana</li>
+</ul>
+
+</section>
+
+<footer>Repositorio: <a href="https://github.com/escomz/escomz.github.io">escomz/escomz.github.io</a> · Sitio: <a href="https://escomz.github.io/proyecto1/">escomz.github.io/proyecto1</a></footer>
+
+</main>
+</body>
+</html>
