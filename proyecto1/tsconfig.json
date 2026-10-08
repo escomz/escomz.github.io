@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "module": "none",
+    "strict": true,
+    "rootDir": "src",
+    "outDir": "compiled"
+  },
+  "include": ["src/**/*.ts"]
+}
