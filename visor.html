@@ -11,6 +11,7 @@
   <style>
     :root {
       --primary: #1d3557;
+      --primary-dark: #14213d;
       --primary-light: #457b9d;
       --accent: #2cd326;
       --accent-hover: #24af1f;
@@ -21,7 +22,12 @@
       --border: #e2e5eb;
       --text: #212529;
       --text-muted: #6c757d;
+
+      /* Variables del visor de código */
       --code-bg: #0d1117;
+      --code-text: #e6edf3;
+      --line-num-color: #7d8590;
+      --line-num-border: #30363d;
       --radius: 8px;
       --shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
       --font-mono: "JetBrains Mono", "Fira Code", Consolas, Menlo, Monaco, monospace;
@@ -328,12 +334,46 @@
     .badge-md { background: #083fa1; color: #fff; }
     .badge-other { background: #6c757d; color: #fff; }
 
-    /* Visor de Código */
+    /* Visor / Pestañas de Vista */
     .viewer-card {
       display: flex;
       flex-direction: column;
-      min-height: 600px;
+      min-height: 650px;
     }
+    .view-mode-tabs {
+      display: flex;
+      background: #eef1f6;
+      border-bottom: 1px solid var(--border);
+      padding: 0.5rem 1rem 0;
+      gap: 0.4rem;
+    }
+    .view-tab-btn {
+      padding: 0.55rem 1.1rem;
+      border: 1px solid transparent;
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      background: transparent;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.15s ease;
+    }
+    .view-tab-btn:hover {
+      background: rgba(255, 255, 255, 0.6);
+      color: var(--primary);
+    }
+    .view-tab-btn.active {
+      background: var(--card-bg);
+      color: var(--primary);
+      border-color: var(--border);
+      border-bottom-color: var(--card-bg);
+      margin-bottom: -1px;
+    }
+
     .viewer-toolbar {
       padding: 0.75rem 1.2rem;
       background: #f8f9fa;
@@ -365,6 +405,7 @@
     .code-wrapper {
       position: relative;
       background: var(--code-bg);
+      color: var(--code-text);
       flex: 1;
       display: flex;
       overflow: auto;
@@ -372,28 +413,125 @@
     .code-container {
       margin: 0;
       width: 100%;
-      background: transparent;
+      background: var(--code-bg);
+      color: var(--code-text);
       display: flex;
       font-family: var(--font-mono);
-      font-size: 0.9rem;
-      line-height: 1.55;
+      font-size: 0.92rem;
+      line-height: 1.6;
     }
     .line-numbers {
       padding: 1.2rem 0.8rem 1.2rem 1rem;
       text-align: right;
-      color: #6e7681;
+      color: var(--line-num-color);
       user-select: none;
-      border-right: 1px solid #30363d;
-      font-size: 0.85rem;
+      border-right: 1px solid var(--line-num-border);
+      font-size: 0.92rem;
+      font-family: var(--font-mono);
+      white-space: pre;
+      line-height: inherit;
     }
     .code-content {
       flex: 1;
       padding: 1.2rem 1.2rem !important;
       margin: 0;
       background: transparent !important;
+      color: var(--code-text) !important;
       overflow-x: auto;
       white-space: pre;
+      font-family: var(--font-mono);
+      font-size: 0.92rem;
+      line-height: inherit;
     }
+
+    /* Contenedor de Ejecución / Vista Previa */
+    .preview-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #ffffff;
+    }
+    .preview-header {
+      padding: 0.6rem 1rem;
+      background: #f1f3f7;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .preview-device-buttons {
+      display: flex;
+      gap: 0.2rem;
+      background: #e2e5eb;
+      padding: 0.2rem;
+      border-radius: 6px;
+    }
+    .btn-device {
+      padding: 0.25rem 0.55rem;
+      font-size: 0.78rem;
+      border: none;
+      background: transparent;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .btn-device.active {
+      background: #fff;
+      color: var(--primary);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    .preview-stage {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      background: #e9ecf2;
+      padding: 1rem;
+      min-height: 520px;
+    }
+    .preview-frame-container {
+      width: 100%;
+      max-width: 100%;
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: max-width 0.25s ease;
+    }
+    #preview-frame {
+      width: 100%;
+      height: 100%;
+      min-height: 500px;
+      border: none;
+      background: #ffffff;
+    }
+
+    /* Consola integrada en preview */
+    .preview-console {
+      border-top: 1px solid var(--border);
+      background: #1e1e24;
+      color: #dcdcdc;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      max-height: 140px;
+      overflow-y: auto;
+      padding: 0.5rem 0.8rem;
+    }
+    .console-header {
+      font-size: 0.75rem;
+      color: #888;
+      margin-bottom: 0.3rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .console-entry { margin: 0.15rem 0; word-break: break-all; }
+    .console-log { color: #85e89d; }
+    .console-error { color: #f97583; }
 
     /* Estado / Mensajes */
     .status-box {
@@ -535,8 +673,19 @@
     </div>
   </aside>
 
-  <!-- Contenido principal: Visor de Código -->
+  <!-- Contenido principal: Visor de Código & Ejecutor -->
   <section class="card viewer-card">
+    <!-- Pestañas de Modo: Código / Ejecución -->
+    <div class="view-mode-tabs">
+      <button class="view-tab-btn active" id="tab-btn-code">
+        <span>💻 Ver Código</span>
+      </button>
+      <button class="view-tab-btn" id="tab-btn-preview">
+        <span>🚀 Vista Previa / Ejecución</span>
+      </button>
+    </div>
+
+    <!-- Barra de herramientas superior -->
     <div class="viewer-toolbar">
       <div class="file-breadcrumbs" id="breadcrumbs">
         <span>Selecciona un fichero para comenzar</span>
@@ -548,7 +697,8 @@
         <button class="btn btn-outline btn-sm" id="btn-copy" title="Copiar código al portapapeles">📋 Copiar</button>
         <a class="btn btn-outline btn-sm" id="btn-raw" target="_blank" title="Abrir versión cruda (Raw)">⬇️ Raw</a>
         <a class="btn btn-outline btn-sm" id="btn-github" target="_blank" title="Abrir en GitHub.com">🐙 GitHub</a>
-        <a class="btn btn-primary btn-sm hidden" id="btn-demo" target="_blank" title="Probar página en vivo">🚀 Probar Web</a>
+        <button class="btn btn-success btn-sm hidden" id="btn-launch-preview" title="Ejecutar en la pestaña de vista previa">▶ Ver Ejecución</button>
+        <a class="btn btn-primary btn-sm hidden" id="btn-open-external" target="_blank" title="Abrir página en vivo en nueva pestaña">🚀 Probar Web</a>
       </div>
     </div>
 
@@ -558,11 +708,44 @@
       <p>Cargando información del repositorio...</p>
     </div>
 
-    <!-- Visor con números de línea -->
+    <!-- MODO 1: Visor de Código con números de línea -->
     <div class="code-wrapper hidden" id="code-wrapper">
       <div class="code-container">
         <div class="line-numbers" id="line-numbers">1</div>
         <pre style="margin:0; flex:1;"><code id="code-content" class="code-content"></code></pre>
+      </div>
+    </div>
+
+    <!-- MODO 2: Ejecución interactiva / Vista previa en Sandbox -->
+    <div class="preview-wrapper hidden" id="preview-wrapper">
+      <div class="preview-header">
+        <div style="display:flex; align-items:center; gap:0.6rem;">
+          <span style="font-size:0.85rem; font-weight:600; color:var(--primary);" id="preview-title">Proyecto en ejecución</span>
+          <button class="btn btn-outline btn-sm" id="btn-reload-preview" title="Recargar ejecución">🔄 Recargar</button>
+        </div>
+        
+        <div style="display:flex; align-items:center; gap:0.6rem;">
+          <div class="preview-device-buttons">
+            <button class="btn-device active" data-width="100%">100%</button>
+            <button class="btn-device" data-width="1024px">🖥️ Desktop</button>
+            <button class="btn-device" data-width="768px">📱 Tablet</button>
+            <button class="btn-device" data-width="375px">📱 Móvil</button>
+          </div>
+          <a class="btn btn-primary btn-sm" id="btn-preview-external" target="_blank">↗ Pestaña Externa</a>
+        </div>
+      </div>
+
+      <div class="preview-stage">
+        <div class="preview-frame-container" id="preview-frame-container">
+          <iframe id="preview-frame" sandbox="allow-scripts allow-same-origin allow-modals allow-forms"></iframe>
+          <div class="preview-console" id="preview-console">
+            <div class="console-header">
+              <span>Consola de Ejecución JS</span>
+              <span id="btn-clear-console" style="cursor:pointer; text-decoration:underline;">Limpiar</span>
+            </div>
+            <div id="console-logs"></div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -613,22 +796,20 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/markdown.min.js"></script>
 
 <script>
-  /**
-   * Estado de la aplicación
-   */
   const state = {
     owner: "escomz",
     repo: "escomz.github.io",
     branch: "main",
-    tree: [],            // Lista completa de blobs
-    projects: {},        // Mapa de { 'proyecto1': [archivos...], 'Raíz': [...] }
-    activeProject: null, // Proyecto seleccionado actualmente ('proyecto1', 'all', etc.)
-    currentFile: null,   // Archivo actual cargado
+    tree: [],
+    projects: {},
+    activeProject: null,
+    currentFile: null,
+    activeMode: "code",
     themeDark: true,
-    token: localStorage.getItem("gh_token") || ""
+    token: localStorage.getItem("gh_token") || "",
+    currentHtmlTarget: null
   };
 
-  // Elementos DOM
   const dom = {
     inputRepo: document.getElementById("input-repo"),
     selectBranch: document.getElementById("select-branch"),
@@ -641,13 +822,24 @@
     breadcrumbs: document.getElementById("breadcrumbs"),
     fileMeta: document.getElementById("file-meta"),
     viewerStatus: document.getElementById("viewer-status"),
+    tabBtnCode: document.getElementById("tab-btn-code"),
+    tabBtnPreview: document.getElementById("tab-btn-preview"),
     codeWrapper: document.getElementById("code-wrapper"),
     codeContent: document.getElementById("code-content"),
     lineNumbers: document.getElementById("line-numbers"),
+    previewWrapper: document.getElementById("preview-wrapper"),
+    previewFrame: document.getElementById("preview-frame"),
+    previewFrameContainer: document.getElementById("preview-frame-container"),
+    previewTitle: document.getElementById("preview-title"),
+    btnReloadPreview: document.getElementById("btn-reload-preview"),
+    btnPreviewExternal: document.getElementById("btn-preview-external"),
+    consoleLogs: document.getElementById("console-logs"),
+    btnClearConsole: document.getElementById("btn-clear-console"),
     btnCopy: document.getElementById("btn-copy"),
     btnRaw: document.getElementById("btn-raw"),
     btnGithub: document.getElementById("btn-github"),
-    btnDemo: document.getElementById("btn-demo"),
+    btnLaunchPreview: document.getElementById("btn-launch-preview"),
+    btnOpenExternal: document.getElementById("btn-open-external"),
     btnTheme: document.getElementById("btn-theme"),
     btnUserRepos: document.getElementById("btn-user-repos"),
     btnToken: document.getElementById("btn-token"),
@@ -656,9 +848,19 @@
     toast: document.getElementById("toast")
   };
 
-  /**
-   * Inicialización inteligente del contexto (Usuario y Repositorio)
-   */
+  /* ── Utilidades de URL de GitHub Pages ── */
+
+  function getGitHubPagesUrl(owner, repo, relativePath) {
+    const isUserSite = repo.toLowerCase() === (owner.toLowerCase() + ".github.io");
+    const cleanPath = (relativePath || "").replace(/^\/+/, "");
+    const base = isUserSite
+      ? "https://" + owner + ".github.io"
+      : "https://" + owner + ".github.io/" + repo;
+    return cleanPath ? base + "/" + cleanPath : base + "/";
+  }
+
+  /* ── Inicialización del contexto ── */
+
   function initContext() {
     const params = new URLSearchParams(window.location.search);
     const host = window.location.hostname;
@@ -667,19 +869,16 @@
     let detectedOwner = "escomz";
     let detectedRepo = "escomz.github.io";
 
-    // 1. Detección por dominio GitHub Pages (ej. usuario.github.io)
     if (host.endsWith(".github.io")) {
       detectedOwner = host.split(".")[0];
       const segments = pathname.split("/").filter(Boolean);
-      // Si la URL es https://usuario.github.io/mi-repo/visor.html -> repo es 'mi-repo'
       if (segments.length > 0 && !segments[0].endsWith(".html")) {
         detectedRepo = segments[0];
       } else {
-        detectedRepo = `${detectedOwner}.github.io`;
+        detectedRepo = detectedOwner + ".github.io";
       }
     }
 
-    // 2. Sobrescritura por parámetros URL (?user=...&repo=... o ?repo=owner/repo)
     if (params.get("repo")) {
       const r = params.get("repo");
       if (r.includes("/")) {
@@ -699,51 +898,44 @@
 
     state.owner = detectedOwner;
     state.repo = detectedRepo;
-    dom.inputRepo.value = `${state.owner}/${state.repo}`;
+    dom.inputRepo.value = state.owner + "/" + state.repo;
 
     if (state.token) {
       document.getElementById("input-token-val").value = state.token;
     }
   }
 
-  /**
-   * Peticiones a GitHub API con soporte de Token y cabeceras
-   */
+  /* ── GitHub API ── */
+
   async function githubApi(endpoint) {
     const headers = { "Accept": "application/vnd.github.v3+json" };
     if (state.token) {
-      headers["Authorization"] = `Bearer ${state.token}`;
+      headers["Authorization"] = "Bearer " + state.token;
     }
-    const res = await fetch(`https://api.github.com/${endpoint}`, { headers });
+    const res = await fetch("https://api.github.com/" + endpoint, { headers });
     if (!res.ok) {
-      if (res.status === 403) {
-        throw new Error("Límite de peticiones de GitHub alcanzado (Rate Limit). Configura un Token en el botón 🔑 Token.");
-      }
-      if (res.status === 404) {
-        throw new Error("Repositorio o recurso no encontrado en GitHub.");
-      }
-      throw new Error(`Error HTTP ${res.status}: ${res.statusText}`);
+      if (res.status === 403) throw new Error("Límite de peticiones de GitHub alcanzado (Rate Limit). Configura un Token en 🔑 Token.");
+      if (res.status === 404) throw new Error("Repositorio o recurso no encontrado en GitHub.");
+      throw new Error("Error HTTP " + res.status + ": " + res.statusText);
     }
     return await res.json();
   }
 
-  /**
-   * Carga la lista de ramas y el árbol de ficheros del repositorio
-   */
+  /* ── Carga de repositorio ── */
+
   async function loadRepository(owner, repo) {
     state.owner = owner;
     state.repo = repo;
-    dom.inputRepo.value = `${owner}/${repo}`;
+    dom.inputRepo.value = owner + "/" + repo;
     showStatus("Analizando estructura del repositorio...");
 
     try {
-      // 1. Obtener detalles del repositorio y ramas
-      const repoData = await githubApi(`repos/${owner}/${repo}`);
-      dom.headerDesc.textContent = repoData.description || `Repositorio de ${owner} (${repoData.stargazers_count} ⭐)`;
+      const repoData = await githubApi("repos/" + owner + "/" + repo);
+      dom.headerDesc.textContent = repoData.description || ("Repositorio de " + owner + " (" + repoData.stargazers_count + " ⭐)");
 
-      const branchesData = await githubApi(`repos/${owner}/${repo}/branches`);
+      const branchesData = await githubApi("repos/" + owner + "/" + repo + "/branches");
       dom.selectBranch.innerHTML = "";
-      branchesData.forEach(b => {
+      branchesData.forEach(function(b) {
         const opt = document.createElement("option");
         opt.value = b.name;
         opt.textContent = b.name;
@@ -754,24 +946,20 @@
         dom.selectBranch.appendChild(opt);
       });
 
-      // 2. Obtener árbol completo de ficheros
       await loadTree();
-
     } catch (err) {
-      showError(`No se pudo cargar el repositorio: ${err.message}`);
+      showError("No se pudo cargar el repositorio: " + err.message);
     }
   }
 
-  /**
-   * Carga y procesa el árbol de ficheros con Git Trees API
-   */
+  /* ── Árbol de ficheros ── */
+
   async function loadTree() {
-    showStatus(`Explorando ficheros en la rama '${state.branch}'...`);
+    showStatus("Explorando ficheros en la rama '" + state.branch + "'...");
     try {
-      const treeData = await githubApi(`repos/${state.owner}/${state.repo}/git/trees/${state.branch}?recursive=1`);
+      const treeData = await githubApi("repos/" + state.owner + "/" + state.repo + "/git/trees/" + state.branch + "?recursive=1");
       
-      // Filtrar únicamente archivos (blobs), omitiendo node_modules y .git
-      state.tree = (treeData.tree || []).filter(item => {
+      state.tree = (treeData.tree || []).filter(function(item) {
         if (item.type !== "blob") return false;
         if (item.path.startsWith(".git/")) return false;
         if (item.path.includes("node_modules/")) return false;
@@ -781,12 +969,11 @@
       analyzeProjects();
       renderProjects();
 
-      // Seleccionar archivo inicial si viene en URL o el primer archivo relevante
       const params = new URLSearchParams(window.location.search);
       const targetFile = params.get("f") || params.get("file");
 
       if (targetFile) {
-        const found = state.tree.find(f => f.path === targetFile);
+        const found = state.tree.find(function(f) { return f.path === targetFile; });
         if (found) {
           selectProjectForFile(targetFile);
           loadFile(targetFile);
@@ -794,34 +981,26 @@
         }
       }
 
-      // Si hay un proyecto, seleccionarlo
-      const projectKeys = Object.keys(state.projects).filter(k => k !== "Todos los archivos");
+      const projectKeys = Object.keys(state.projects).filter(function(k) { return k !== "Todos los archivos"; });
       if (projectKeys.length > 0) {
         selectProject(projectKeys[0]);
       } else {
         selectProject("Todos los archivos");
       }
-
     } catch (err) {
-      showError(`Error al leer el árbol de ficheros: ${err.message}`);
+      showError("Error al leer el árbol de ficheros: " + err.message);
     }
   }
 
-  /**
-   * Agrupa los ficheros en Proyectos detectados
-   */
   function analyzeProjects() {
-    state.projects = {
-      "Todos los archivos": [...state.tree]
-    };
+    state.projects = { "Todos los archivos": state.tree.slice() };
 
-    state.tree.forEach(file => {
+    state.tree.forEach(function(file) {
       const parts = file.path.split("/");
-      let group = "Raíz / General";
+      var group = "Raíz / General";
       if (parts.length > 1) {
-        group = parts[0]; // Carpeta raíz (ej. 'proyecto1', 'src', etc.)
+        group = parts[0];
       }
-
       if (!state.projects[group]) {
         state.projects[group] = [];
       }
@@ -829,69 +1008,62 @@
     });
   }
 
-  /**
-   * Renderiza las tarjetas de proyectos
-   */
+  /* ── Renderizar tarjetas de proyecto ── */
+
   function renderProjects() {
     dom.projectList.innerHTML = "";
     const groups = Object.keys(state.projects);
-    dom.countProjects.textContent = groups.filter(g => g !== "Todos los archivos").length;
+    dom.countProjects.textContent = groups.filter(function(g) { return g !== "Todos los archivos"; }).length;
 
-    groups.forEach(group => {
+    groups.forEach(function(group) {
       const files = state.projects[group];
-      const hasIndexHtml = files.some(f => f.path.endsWith("index.html"));
+      const indexFile = files.find(function(f) { return f.path.endsWith("index.html"); });
       
       const card = document.createElement("div");
-      card.className = `project-card ${state.activeProject === group ? "active" : ""}`;
+      card.className = "project-card" + (state.activeProject === group ? " active" : "");
       
       const info = document.createElement("div");
       info.className = "project-info";
       
       const title = document.createElement("div");
       title.className = "project-name";
-      title.innerHTML = `${group === "Todos los archivos" ? "📂" : (group === "Raíz / General" ? "📄" : "🚀")} <strong>${group}</strong>`;
+      var icon = group === "Todos los archivos" ? "📂" : (group === "Raíz / General" ? "📄" : "🚀");
+      title.innerHTML = icon + " <strong>" + group + "</strong>";
       
       const meta = document.createElement("div");
       meta.className = "project-meta";
-      meta.textContent = `${files.length} archivo${files.length !== 1 ? "s" : ""}`;
+      meta.textContent = files.length + " archivo" + (files.length !== 1 ? "s" : "");
 
       info.appendChild(title);
       info.appendChild(meta);
       card.appendChild(info);
 
-      // Botón para demo en vivo si tiene index.html
-      if (hasIndexHtml && group !== "Todos los archivos") {
-        const demoBtn = document.createElement("a");
-        demoBtn.className = "btn btn-outline btn-sm";
-        demoBtn.title = "Ver proyecto en vivo";
-        demoBtn.innerHTML = "▶ Ver";
+      // Botón ▶ Ver — lanza ejecución en el iframe
+      if (indexFile && group !== "Todos los archivos") {
+        const btnVer = document.createElement("button");
+        btnVer.className = "btn btn-success btn-sm";
+        btnVer.title = "Ver ejecución interactiva del proyecto";
+        btnVer.innerHTML = "▶ Ver";
         
-        let demoUrl = "";
-        if (group === "Raíz / General") {
-          demoUrl = `https://${state.owner}.github.io/${state.repo}/`;
-        } else {
-          demoUrl = `https://${state.owner}.github.io/${state.repo}/${group}/`;
-        }
-        demoBtn.href = demoUrl;
-        demoBtn.target = "_blank";
-        demoBtn.onclick = (e) => e.stopPropagation();
-        card.appendChild(demoBtn);
+        btnVer.onclick = function(e) {
+          e.stopPropagation();
+          selectProject(group);
+          launchExecution(indexFile.path);
+        };
+        card.appendChild(btnVer);
       }
 
-      card.onclick = () => selectProject(group);
+      card.onclick = function() { selectProject(group); };
       dom.projectList.appendChild(card);
     });
   }
 
-  /**
-   * Selecciona un proyecto y lista sus ficheros
-   */
   function selectProject(groupName) {
     state.activeProject = groupName;
 
-    // Actualizar clase activa en UI
-    Array.from(dom.projectList.children).forEach(el => {
-      if (el.querySelector(".project-name strong").textContent === groupName) {
+    Array.from(dom.projectList.children).forEach(function(el) {
+      var nameEl = el.querySelector(".project-name strong");
+      if (nameEl && nameEl.textContent === groupName) {
         el.classList.add("active");
       } else {
         el.classList.remove("active");
@@ -902,16 +1074,15 @@
   }
 
   function selectProjectForFile(filePath) {
-    const parts = filePath.split("/");
-    const group = parts.length > 1 ? parts[0] : "Raíz / General";
+    var parts = filePath.split("/");
+    var group = parts.length > 1 ? parts[0] : "Raíz / General";
     if (state.projects[group]) {
       selectProject(group);
     }
   }
 
-  /**
-   * Obtiene la etiqueta del lenguaje
-   */
+  /* ── Badges y lenguajes ── */
+
   function getBadgeClass(filename) {
     if (filename.endsWith(".ts")) return { class: "badge-ts", text: "TS" };
     if (filename.endsWith(".js") || filename.endsWith(".mjs")) return { class: "badge-js", text: "JS" };
@@ -922,350 +1093,505 @@
     return { class: "badge-other", text: filename.split(".").pop() || "FILE" };
   }
 
-  /**
-   * Detecta el lenguaje para Highlight.js
-   */
   function detectLanguage(filename) {
-    const ext = filename.split(".").pop().toLowerCase();
-    const map = {
-      ts: "typescript",
-      js: "javascript",
-      mjs: "javascript",
-      html: "xml",
-      xml: "xml",
-      svg: "xml",
-      css: "css",
-      json: "json",
-      md: "markdown",
-      sh: "bash",
-      py: "python",
-      c: "c",
-      cpp: "cpp",
-      java: "java"
+    var ext = filename.split(".").pop().toLowerCase();
+    var map = {
+      ts: "typescript", tsx: "typescript",
+      js: "javascript", jsx: "javascript", mjs: "javascript", cjs: "javascript",
+      html: "xml", htm: "xml", xml: "xml", svg: "xml",
+      css: "css", scss: "css",
+      json: "json", md: "markdown", sh: "bash", bash: "bash",
+      py: "python", c: "c", h: "c", cpp: "cpp", hpp: "cpp",
+      java: "java", sql: "sql", yaml: "yaml", yml: "yaml"
     };
     return map[ext] || "plaintext";
   }
 
-  /**
-   * Renderiza la lista de archivos filtrados
-   */
+  function escapeHtml(str) {
+    return str
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  /* ── Lista de archivos ── */
+
   function renderFileList() {
     dom.fileTree.innerHTML = "";
-    const filter = dom.fileSearch.value.trim().toLowerCase();
-    const files = state.projects[state.activeProject] || state.tree;
-
-    const filtered = files.filter(f => f.path.toLowerCase().includes(filter));
+    var filter = dom.fileSearch.value.trim().toLowerCase();
+    var files = state.projects[state.activeProject] || state.tree;
+    var filtered = files.filter(function(f) { return f.path.toLowerCase().includes(filter); });
 
     if (filtered.length === 0) {
       dom.fileTree.innerHTML = '<li class="status-box" style="padding:1.5rem;">No se encontraron archivos</li>';
       return;
     }
 
-    filtered.forEach(file => {
-      const li = document.createElement("li");
-      li.className = `file-item ${state.currentFile === file.path ? "active" : ""}`;
+    filtered.forEach(function(file) {
+      var li = document.createElement("li");
+      li.className = "file-item" + (state.currentFile === file.path ? " active" : "");
       
-      const badge = getBadgeClass(file.path);
-      
-      // Mostrar ruta relativa al proyecto o completa si es "Todos los archivos"
-      let displayPath = file.path;
+      var badge = getBadgeClass(file.path);
+      var displayPath = file.path;
       if (state.activeProject !== "Todos los archivos" && state.activeProject !== "Raíz / General") {
         if (displayPath.startsWith(state.activeProject + "/")) {
           displayPath = displayPath.substring(state.activeProject.length + 1);
         }
       }
 
-      li.innerHTML = `
-        <div class="file-name-group" title="${file.path}">
-          <span class="file-badge ${badge.class}">${badge.text}</span>
-          <span>${displayPath}</span>
-        </div>
-        <span style="font-size:0.75rem; color:var(--text-muted);">${formatBytes(file.size)}</span>
-      `;
+      li.innerHTML =
+        '<div class="file-name-group" title="' + file.path + '">' +
+          '<span class="file-badge ' + badge.class + '">' + badge.text + '</span>' +
+          '<span>' + displayPath + '</span>' +
+        '</div>' +
+        '<span style="font-size:0.75rem; color:var(--text-muted);">' + formatBytes(file.size) + '</span>';
 
-      li.onclick = () => loadFile(file.path, file.size);
+      li.onclick = function() { loadFile(file.path, file.size); };
       dom.fileTree.appendChild(li);
     });
 
-    // Cargar automáticamente el primer archivo si no hay ninguno seleccionado
     if (!state.currentFile && filtered.length > 0) {
       loadFile(filtered[0].path, filtered[0].size);
     }
   }
 
-  /**
-   * Formatea bytes a KB/MB legibles
-   */
   function formatBytes(bytes) {
     if (!bytes || bytes === 0) return "0 B";
-    const k = 1024;
-    const sizes = ["B", "KB", "MB"];
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    var k = 1024;
+    var sizes = ["B", "KB", "MB"];
+    var i = Math.floor(Math.log(bytes) / Math.log(k));
     return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + " " + sizes[i];
   }
 
-  /**
-   * Descarga y muestra el contenido de un fichero
-   */
+  /* ── Cargar y mostrar un fichero ── */
+
   async function loadFile(filePath, fileSize) {
     state.currentFile = filePath;
 
-    // Actualizar clase activa en el árbol
-    Array.from(dom.fileTree.querySelectorAll(".file-item")).forEach(item => {
-      const pathText = item.querySelector(".file-name-group")?.getAttribute("title");
-      if (pathText === filePath) {
+    Array.from(dom.fileTree.querySelectorAll(".file-item")).forEach(function(item) {
+      var pathText = item.querySelector(".file-name-group");
+      if (pathText && pathText.getAttribute("title") === filePath) {
         item.classList.add("active");
       } else {
         item.classList.remove("active");
       }
     });
 
-    // Configurar Breadcrumbs y botones
     updateBreadcrumbs(filePath);
-    const rawUrl = `https://raw.githubusercontent.com/${state.owner}/${state.repo}/${state.branch}/${filePath}`;
-    const githubUrl = `https://github.com/${state.owner}/${state.repo}/blob/${state.branch}/${filePath}`;
+    var rawUrl = "https://raw.githubusercontent.com/" + state.owner + "/" + state.repo + "/" + state.branch + "/" + filePath;
+    var githubUrl = "https://github.com/" + state.owner + "/" + state.repo + "/blob/" + state.branch + "/" + filePath;
+    var externalPagesUrl = getGitHubPagesUrl(state.owner, state.repo, filePath);
     
     dom.btnRaw.href = rawUrl;
     dom.btnGithub.href = githubUrl;
 
-    // Botón de vista previa si es HTML
+    // Determinar si podemos mostrar ejecución
     if (filePath.endsWith(".html")) {
-      dom.btnDemo.classList.remove("hidden");
-      dom.btnDemo.href = `https://${state.owner}.github.io/${state.repo}/${filePath}`;
+      dom.btnLaunchPreview.classList.remove("hidden");
+      dom.btnOpenExternal.classList.remove("hidden");
+      dom.btnOpenExternal.href = externalPagesUrl;
+      state.currentHtmlTarget = filePath;
     } else {
-      dom.btnDemo.classList.add("hidden");
+      var currentProjFiles = state.projects[state.activeProject] || [];
+      var projectIndex = currentProjFiles.find(function(f) { return f.path.endsWith("index.html"); });
+      if (projectIndex) {
+        dom.btnLaunchPreview.classList.remove("hidden");
+        dom.btnOpenExternal.classList.remove("hidden");
+        dom.btnOpenExternal.href = getGitHubPagesUrl(state.owner, state.repo, projectIndex.path);
+        state.currentHtmlTarget = projectIndex.path;
+      } else {
+        dom.btnLaunchPreview.classList.add("hidden");
+        dom.btnOpenExternal.classList.add("hidden");
+      }
     }
 
     showStatus("Descargando archivo...");
 
     try {
-      const res = await fetch(rawUrl);
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const text = await res.text();
+      var res = await fetch(rawUrl);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      var text = await res.text();
 
       displayCode(text, filePath, fileSize || text.length);
       
-      // Actualizar query string de la URL sin recargar
-      const newUrl = new URL(window.location);
+      var newUrl = new URL(window.location);
       newUrl.searchParams.set("user", state.owner);
       newUrl.searchParams.set("repo", state.repo);
       newUrl.searchParams.set("branch", state.branch);
       newUrl.searchParams.set("f", filePath);
       window.history.replaceState({}, "", newUrl);
 
+      if (state.activeMode === "preview" && filePath.endsWith(".html")) {
+        launchExecution(filePath);
+      }
     } catch (err) {
-      showError(`Error al descargar el fichero (${rawUrl}): ${err.message}`);
+      showError("Error al descargar el fichero (" + rawUrl + "): " + err.message);
     }
   }
 
-  /**
-   * Renderiza el código con números de línea y resaltado de sintaxis
-   */
   function displayCode(code, filePath, size) {
     dom.viewerStatus.classList.add("hidden");
-    dom.codeWrapper.classList.remove("hidden");
+    
+    if (state.activeMode === "code") {
+      dom.codeWrapper.classList.remove("hidden");
+      dom.previewWrapper.classList.add("hidden");
+    }
 
-    const lang = detectLanguage(filePath);
-    dom.codeContent.className = `code-content language-${lang}`;
-    dom.codeContent.textContent = code;
+    var lang = detectLanguage(filePath);
+    var highlightedHtml = "";
 
-    // Resaltado de sintaxis
-    hljs.highlightElement(dom.codeContent);
+    try {
+      if (typeof hljs !== "undefined") {
+        if (lang && lang !== "plaintext" && hljs.getLanguage && hljs.getLanguage(lang)) {
+          highlightedHtml = hljs.highlight(code, { language: lang, ignoreIllegals: true }).value;
+        } else if (hljs.highlightAuto) {
+          highlightedHtml = hljs.highlightAuto(code).value;
+        } else {
+          highlightedHtml = escapeHtml(code);
+        }
+      } else {
+        highlightedHtml = escapeHtml(code);
+      }
+    } catch (e) {
+      highlightedHtml = escapeHtml(code);
+    }
 
-    // Generar números de línea
-    const lines = code.split("\n").length;
-    let numbers = "";
-    for (let i = 1; i <= lines; i++) {
+    dom.codeContent.className = "code-content hljs language-" + (lang || "plaintext");
+    dom.codeContent.innerHTML = highlightedHtml;
+
+    var lines = code.split("\n").length;
+    var numbers = "";
+    for (var i = 1; i <= lines; i++) {
       numbers += i + "\n";
     }
     dom.lineNumbers.textContent = numbers;
-
-    // Metadatos
-    dom.fileMeta.textContent = `${lines} líneas • ${formatBytes(size)}`;
+    dom.fileMeta.textContent = lines + " líneas • " + formatBytes(size);
   }
 
-  /**
-   * Actualiza la barra de breadcrumbs
-   */
+  /* ── EJECUCIÓN INTERACTIVA EN IFRAME ── */
+
+  async function launchExecution(htmlPath) {
+    if (!htmlPath) {
+      htmlPath = state.currentHtmlTarget;
+    }
+    if (!htmlPath) {
+      showToast("No hay un archivo HTML seleccionado para ejecutar");
+      return;
+    }
+
+    state.currentHtmlTarget = htmlPath;
+    switchMode("preview");
+    
+    dom.previewTitle.textContent = "▶ Ejecutando: " + htmlPath;
+    dom.btnPreviewExternal.href = getGitHubPagesUrl(state.owner, state.repo, htmlPath);
+
+    clearConsole();
+    addConsoleLog("Iniciando entorno de ejecución interactiva...", "log");
+
+    try {
+      var baseDir = htmlPath.includes("/") ? htmlPath.substring(0, htmlPath.lastIndexOf("/")) : "";
+      var rawBase = "https://raw.githubusercontent.com/" + state.owner + "/" + state.repo + "/" + state.branch + "/";
+      var rawHtmlUrl = rawBase + htmlPath;
+      
+      var htmlRes = await fetch(rawHtmlUrl);
+      if (!htmlRes.ok) throw new Error("No se pudo cargar HTML (" + htmlRes.status + ")");
+      var htmlContent = await htmlRes.text();
+
+      // Script inyectado para capturar console.log/error dentro del iframe
+      var consoleScript =
+        '<script>' +
+        '(function() {' +
+        '  var origLog = console.log, origWarn = console.warn, origErr = console.error;' +
+        '  function send(type, args) {' +
+        '    var msg = Array.from(args).map(function(a) { return typeof a === "object" ? JSON.stringify(a) : String(a); }).join(" ");' +
+        '    window.parent.postMessage({ type: "CONSOLE_" + type.toUpperCase(), msg: msg }, "*");' +
+        '  }' +
+        '  console.log = function() { send("log", arguments); origLog.apply(console, arguments); };' +
+        '  console.warn = function() { send("warn", arguments); origWarn.apply(console, arguments); };' +
+        '  console.error = function() { send("error", arguments); origErr.apply(console, arguments); };' +
+        '  window.onerror = function(msg, url, line) { send("error", ["Error línea " + line + ": " + msg]); };' +
+        '})();' +
+        '<\/script>';
+
+      if (htmlContent.includes("<head>")) {
+        htmlContent = htmlContent.replace("<head>", "<head>" + consoleScript);
+      } else {
+        htmlContent = consoleScript + htmlContent;
+      }
+
+      // Resolver CSS relativos → inline <style>
+      var cssRegex = /<link\s+[^>]*rel=["']stylesheet["'][^>]*href=["']([^"']+)["'][^>]*>/gi;
+      var cssMatch;
+      var cssReplacements = [];
+      while ((cssMatch = cssRegex.exec(htmlContent)) !== null) {
+        cssReplacements.push({ fullTag: cssMatch[0], href: cssMatch[1] });
+      }
+      for (var ci = 0; ci < cssReplacements.length; ci++) {
+        var cr = cssReplacements[ci];
+        if (!cr.href.startsWith("http://") && !cr.href.startsWith("https://")) {
+          var targetCssPath = baseDir ? baseDir + "/" + cr.href.replace(/^\.\//, "") : cr.href.replace(/^\.\//, "");
+          try {
+            var cssRes = await fetch(rawBase + targetCssPath);
+            if (cssRes.ok) {
+              var cssText = await cssRes.text();
+              htmlContent = htmlContent.replace(cr.fullTag, "<style>/* " + cr.href + " */\n" + cssText + "</style>");
+              addConsoleLog("CSS vinculado: " + cr.href, "log");
+            }
+          } catch(e) {}
+        }
+      }
+
+      // Resolver JS relativos → inline <script>
+      var jsRegex = /<script\s+[^>]*src=["']([^"']+)["'][^>]*>\s*<\/script>/gi;
+      var jsMatch;
+      var jsReplacements = [];
+      while ((jsMatch = jsRegex.exec(htmlContent)) !== null) {
+        jsReplacements.push({ fullTag: jsMatch[0], src: jsMatch[1] });
+      }
+      for (var ji = 0; ji < jsReplacements.length; ji++) {
+        var jr = jsReplacements[ji];
+        if (!jr.src.startsWith("http://") && !jr.src.startsWith("https://")) {
+          var targetJsPath = baseDir ? baseDir + "/" + jr.src.replace(/^\.\//, "") : jr.src.replace(/^\.\//, "");
+          try {
+            var jsRes = await fetch(rawBase + targetJsPath);
+            if (jsRes.ok) {
+              var jsText = await jsRes.text();
+              htmlContent = htmlContent.replace(jr.fullTag, "<script>/* " + jr.src + " */\n" + jsText + "\n<\/script>");
+              addConsoleLog("Script cargado: " + jr.src, "log");
+            }
+          } catch(e) {}
+        }
+      }
+
+      dom.previewFrame.srcdoc = htmlContent;
+      addConsoleLog("¡Proyecto renderizado y en ejecución!", "log");
+
+    } catch (err) {
+      addConsoleLog("Error al ejecutar: " + err.message, "error");
+      dom.previewFrame.srcdoc = '<div style="font-family:sans-serif; padding:2rem; color:#e63946;"><h3>Error de Ejecución</h3><p>' + err.message + '</p></div>';
+    }
+  }
+
+  window.addEventListener("message", function(event) {
+    if (event.data && event.data.type && event.data.type.startsWith("CONSOLE_")) {
+      var type = event.data.type === "CONSOLE_ERROR" ? "error" : "log";
+      addConsoleLog(event.data.msg, type);
+    }
+  });
+
+  function addConsoleLog(msg, type) {
+    var entry = document.createElement("div");
+    entry.className = "console-entry console-" + (type || "log");
+    entry.textContent = "[" + new Date().toLocaleTimeString() + "] " + msg;
+    dom.consoleLogs.appendChild(entry);
+    document.getElementById("preview-console").scrollTop = document.getElementById("preview-console").scrollHeight;
+  }
+
+  function clearConsole() {
+    dom.consoleLogs.innerHTML = "";
+  }
+
+  function switchMode(mode) {
+    state.activeMode = mode;
+    if (mode === "code") {
+      dom.tabBtnCode.classList.add("active");
+      dom.tabBtnPreview.classList.remove("active");
+      dom.codeWrapper.classList.remove("hidden");
+      dom.previewWrapper.classList.add("hidden");
+      dom.viewerStatus.classList.add("hidden");
+    } else {
+      dom.tabBtnCode.classList.remove("active");
+      dom.tabBtnPreview.classList.add("active");
+      dom.codeWrapper.classList.add("hidden");
+      dom.previewWrapper.classList.remove("hidden");
+      dom.viewerStatus.classList.add("hidden");
+    }
+  }
+
   function updateBreadcrumbs(filePath) {
-    const parts = filePath.split("/");
-    dom.breadcrumbs.innerHTML = `
-      <strong>${state.owner}</strong>
-      <span class="sep">/</span>
-      <strong>${state.repo}</strong>
-      <span class="sep">/</span>
-      ${parts.map((p, idx) => idx === parts.length - 1 ? `<strong>${p}</strong>` : `<span>${p}</span>`).join('<span class="sep">/</span>')}
-    `;
+    var parts = filePath.split("/");
+    var html = "<strong>" + state.owner + "</strong>" +
+      '<span class="sep">/</span>' +
+      "<strong>" + state.repo + "</strong>" +
+      '<span class="sep">/</span>';
+    parts.forEach(function(p, idx) {
+      if (idx === parts.length - 1) {
+        html += "<strong>" + p + "</strong>";
+      } else {
+        html += "<span>" + p + "</span>" + '<span class="sep">/</span>';
+      }
+    });
+    dom.breadcrumbs.innerHTML = html;
   }
 
   function showStatus(msg) {
     dom.viewerStatus.classList.remove("hidden", "error");
-    dom.viewerStatus.innerHTML = `<div class="spinner"></div><p>${msg}</p>`;
+    dom.viewerStatus.innerHTML = '<div class="spinner"></div><p>' + msg + '</p>';
     dom.codeWrapper.classList.add("hidden");
+    dom.previewWrapper.classList.add("hidden");
   }
 
   function showError(msg) {
     dom.viewerStatus.classList.remove("hidden");
     dom.viewerStatus.classList.add("error");
-    dom.viewerStatus.innerHTML = `
-      <p style="font-size:1.1rem; font-weight:bold; margin-bottom:0.5rem;">⚠️ No se pudo cargar</p>
-      <p>${msg}</p>
-    `;
+    dom.viewerStatus.innerHTML =
+      '<p style="font-size:1.1rem; font-weight:bold; margin-bottom:0.5rem;">⚠️ No se pudo cargar</p>' +
+      '<p>' + msg + '</p>';
     dom.codeWrapper.classList.add("hidden");
+    dom.previewWrapper.classList.add("hidden");
   }
 
   function showToast(msg) {
     dom.toast.textContent = msg;
     dom.toast.classList.add("show");
-    setTimeout(() => dom.toast.classList.remove("show"), 2500);
+    setTimeout(function() { dom.toast.classList.remove("show"); }, 2500);
   }
 
   function toggleModal(id, open) {
-    const modal = document.getElementById(id);
+    var modal = document.getElementById(id);
     if (open) modal.classList.add("active");
     else modal.classList.remove("active");
   }
 
-  /**
-   * Carga la lista de todos los repositorios del usuario
-   */
   async function loadUserRepos() {
     toggleModal("modal-repos", true);
-    const title = document.getElementById("modal-repos-title");
-    const container = document.getElementById("modal-repos-list");
-    title.textContent = `📦 Repositorios públicos de @${state.owner}`;
+    var title = document.getElementById("modal-repos-title");
+    var container = document.getElementById("modal-repos-list");
+    title.textContent = "📦 Repositorios públicos de @" + state.owner;
     container.innerHTML = '<div class="status-box"><div class="spinner"></div></div>';
 
     try {
-      const repos = await githubApi(`users/${state.owner}/repos?sort=updated&per_page=50`);
+      var repos = await githubApi("users/" + state.owner + "/repos?sort=updated&per_page=50");
       if (repos.length === 0) {
         container.innerHTML = '<p style="text-align:center; color:var(--text-muted);">El usuario no tiene repositorios públicos.</p>';
         return;
       }
 
       container.innerHTML = "";
-      repos.forEach(r => {
-        const item = document.createElement("div");
+      repos.forEach(function(r) {
+        var item = document.createElement("div");
         item.style.cssText = "padding:0.75rem; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; cursor:pointer;";
-        item.innerHTML = `
-          <div>
-            <div style="font-weight:700; color:var(--primary); font-size:0.95rem;">${r.name} ${r.fork ? '<span style="font-size:0.75rem; color:#888;">(fork)</span>' : ''}</div>
-            <div style="font-size:0.8rem; color:var(--text-muted);">${r.description || 'Sin descripción'}</div>
-          </div>
-          <div style="display:flex; align-items:center; gap:0.5rem;">
-            <span style="font-size:0.8rem; color:var(--text-muted);">${r.language || ''}</span>
-            <button class="btn btn-primary btn-sm">Abrir</button>
-          </div>
-        `;
-        item.onclick = () => {
+        item.innerHTML =
+          '<div>' +
+            '<div style="font-weight:700; color:var(--primary); font-size:0.95rem;">' + r.name + (r.fork ? ' <span style="font-size:0.75rem; color:#888;">(fork)</span>' : '') + '</div>' +
+            '<div style="font-size:0.8rem; color:var(--text-muted);">' + (r.description || 'Sin descripción') + '</div>' +
+          '</div>' +
+          '<div style="display:flex; align-items:center; gap:0.5rem;">' +
+            '<span style="font-size:0.8rem; color:var(--text-muted);">${r.language || ""}</span>' +
+            '<button class="btn btn-primary btn-sm">Abrir</button>' +
+          '</div>';
+        item.onclick = function() {
           toggleModal("modal-repos", false);
           loadRepository(state.owner, r.name);
         };
         container.appendChild(item);
       });
     } catch (err) {
-      container.innerHTML = `<div class="status-box error">${err.message}</div>`;
+      container.innerHTML = '<div class="status-box error">' + err.message + '</div>';
     }
   }
 
-  /**
-   * Parsear enlace directo de GitHub
-   */
   function parseGithubUrl(urlStr) {
-    const u = urlStr.trim();
+    var u = urlStr.trim();
     if (!u) return null;
 
-    // Caso 1: raw.githubusercontent.com/owner/repo/branch/path...
     if (u.startsWith("https://raw.githubusercontent.com/")) {
-      const parts = u.replace("https://raw.githubusercontent.com/", "").split("/");
+      var parts = u.replace("https://raw.githubusercontent.com/", "").split("/");
       if (parts.length >= 4) {
-        return {
-          owner: parts[0],
-          repo: parts[1],
-          branch: parts[2],
-          file: parts.slice(3).join("/")
-        };
+        return { owner: parts[0], repo: parts[1], branch: parts[2], file: parts.slice(3).join("/") };
       }
     }
 
-    // Caso 2: github.com/owner/repo/blob/branch/path...
-    const m = u.match(/github\.com\/([^/]+)\/([^/]+)\/blob\/([^/]+)\/(.+)$/);
+    var m = u.match(/github\.com\/([^/]+)\/([^/]+)\/blob\/([^/]+)\/(.+)$/);
     if (m) {
-      return {
-        owner: m[1],
-        repo: m[2],
-        branch: m[3],
-        file: m[4]
-      };
+      return { owner: m[1], repo: m[2], branch: m[3], file: m[4] };
     }
 
-    // Caso 3: github.com/owner/repo
-    const mRepo = u.match(/github\.com\/([^/]+)\/([^/]+)/);
+    var mRepo = u.match(/github\.com\/([^/]+)\/([^/]+)/);
     if (mRepo) {
-      return {
-        owner: mRepo[1],
-        repo: mRepo[2].replace(".git", ""),
-        branch: "main",
-        file: null
-      };
+      return { owner: mRepo[1], repo: mRepo[2].replace(".git", ""), branch: "main", file: null };
     }
 
     return null;
   }
 
-  /**
-   * Event Listeners
-   */
-  dom.btnLoadRepo.onclick = () => {
-    const val = dom.inputRepo.value.trim();
+  /* ── Event Listeners ── */
+
+  dom.tabBtnCode.onclick = function() { switchMode("code"); };
+  dom.tabBtnPreview.onclick = function() {
+    switchMode("preview");
+    launchExecution();
+  };
+
+  dom.btnLaunchPreview.onclick = function() { launchExecution(); };
+  dom.btnReloadPreview.onclick = function() { launchExecution(); };
+  dom.btnClearConsole.onclick = function() { clearConsole(); };
+
+  document.querySelectorAll(".btn-device").forEach(function(btn) {
+    btn.onclick = function() {
+      document.querySelectorAll(".btn-device").forEach(function(b) { b.classList.remove("active"); });
+      btn.classList.add("active");
+      dom.previewFrameContainer.style.maxWidth = btn.getAttribute("data-width");
+    };
+  });
+
+  dom.btnLoadRepo.onclick = function() {
+    var val = dom.inputRepo.value.trim();
     if (!val) return;
     if (val.includes("/")) {
-      const [o, r] = val.split("/");
-      loadRepository(o, r);
+      var parts = val.split("/");
+      loadRepository(parts[0], parts[1]);
     } else {
-      loadRepository(val, `${val}.github.io`);
+      loadRepository(val, val + ".github.io");
     }
   };
 
-  dom.inputRepo.onkeydown = (e) => {
+  dom.inputRepo.onkeydown = function(e) {
     if (e.key === "Enter") dom.btnLoadRepo.click();
   };
 
-  dom.selectBranch.onchange = () => {
+  dom.selectBranch.onchange = function() {
     state.branch = dom.selectBranch.value;
     loadTree();
   };
 
-  dom.fileSearch.oninput = () => {
-    renderFileList();
-  };
+  dom.fileSearch.oninput = function() { renderFileList(); };
 
-  dom.btnCopy.onclick = () => {
+  dom.btnCopy.onclick = function() {
     if (!state.currentFile) return;
-    navigator.clipboard.writeText(dom.codeContent.textContent).then(() => {
+    navigator.clipboard.writeText(dom.codeContent.textContent).then(function() {
       showToast("¡Código copiado al portapapeles!");
     });
   };
 
-  dom.btnTheme.onclick = () => {
+  dom.btnTheme.onclick = function() {
     state.themeDark = !state.themeDark;
-    const themeLink = document.getElementById("theme-link");
+    var themeLink = document.getElementById("theme-link");
+    var root = document.documentElement;
+
     if (state.themeDark) {
       themeLink.href = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css";
-      document.documentElement.style.setProperty("--code-bg", "#0d1117");
+      root.style.setProperty("--code-bg", "#0d1117");
+      root.style.setProperty("--code-text", "#e6edf3");
+      root.style.setProperty("--line-num-color", "#7d8590");
+      root.style.setProperty("--line-num-border", "#30363d");
     } else {
       themeLink.href = "https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css";
-      document.documentElement.style.setProperty("--code-bg", "#f6f8fa");
+      root.style.setProperty("--code-bg", "#f6f8fa");
+      root.style.setProperty("--code-text", "#24292f");
+      root.style.setProperty("--line-num-color", "#8c959f");
+      root.style.setProperty("--line-num-border", "#d0d7de");
     }
     showToast(state.themeDark ? "Tema oscuro activado" : "Tema claro activado");
   };
 
-  dom.btnUserRepos.onclick = () => loadUserRepos();
+  dom.btnUserRepos.onclick = function() { loadUserRepos(); };
+  dom.btnToken.onclick = function() { toggleModal("modal-token", true); };
 
-  dom.btnToken.onclick = () => toggleModal("modal-token", true);
-
-  document.getElementById("btn-save-token").onclick = () => {
-    const val = document.getElementById("input-token-val").value.trim();
+  document.getElementById("btn-save-token").onclick = function() {
+    var val = document.getElementById("input-token-val").value.trim();
     state.token = val;
     if (val) localStorage.setItem("gh_token", val);
     else localStorage.removeItem("gh_token");
@@ -1274,7 +1600,7 @@
     loadTree();
   };
 
-  document.getElementById("btn-clear-token").onclick = () => {
+  document.getElementById("btn-clear-token").onclick = function() {
     document.getElementById("input-token-val").value = "";
     state.token = "";
     localStorage.removeItem("gh_token");
@@ -1282,15 +1608,15 @@
     showToast("Token eliminado");
   };
 
-  dom.btnCargarDirecta.onclick = () => {
-    const parsed = parseGithubUrl(dom.urlDirecta.value);
+  dom.btnCargarDirecta.onclick = function() {
+    var parsed = parseGithubUrl(dom.urlDirecta.value);
     if (!parsed) {
       showToast("URL de GitHub no reconocida");
       return;
     }
     if (parsed.owner !== state.owner || parsed.repo !== state.repo) {
       state.branch = parsed.branch || "main";
-      loadRepository(parsed.owner, parsed.repo).then(() => {
+      loadRepository(parsed.owner, parsed.repo).then(function() {
         if (parsed.file) loadFile(parsed.file);
       });
     } else {
@@ -1302,11 +1628,11 @@
     }
   };
 
-  dom.urlDirecta.onkeydown = (e) => {
+  dom.urlDirecta.onkeydown = function(e) {
     if (e.key === "Enter") dom.btnCargarDirecta.click();
   };
 
-  // Arranque
+  // Arranque inicial
   initContext();
   loadRepository(state.owner, state.repo);
 </script>
