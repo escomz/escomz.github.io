@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>escomz.github.io — Proyectos y Código</title>
+  <!-- Redirección automática a visor.html -->
+  <meta http-equiv="refresh" content="0; url=visor.html">
+  <style>
+    :root {
+      --primary: #1d3557;
+      --accent: #2cd326;
+      --bg: #f4f5f8;
+      --card: #ffffff;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: #222;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 10px;
+      padding: 2.5rem;
+      max-width: 500px;
+      width: 90%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      text-align: center;
+    }
+    h1 { margin-top: 0; color: var(--primary); font-size: 1.5rem; }
+    p { color: #666; margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .links { display: flex; flex-direction: column; gap: 0.75rem; }
+    .btn {
+      display: block;
+      padding: 0.75rem 1.2rem;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+    .btn-primary { background: #1d3557; color: #fff; }
+    .btn-primary:hover { background: #457b9d; }
+    .btn-accent { background: var(--accent); color: #14213d; }
+    .btn-accent:hover { background: #24af1f; color: #fff; }
+    .btn-outline { border: 1px solid #ccc; color: #333; }
+    .btn-outline:hover { background: #e9ecef; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>🚀 escomz.github.io</h1>
+    <p>Redirigiendo al visor de proyectos y código...</p>
+    <div class="links">
+      <a href="visor.html" class="btn btn-accent">💻 Abrir Visor de Código &amp; Proyectos</a>
+      <a href="proyecto1/" class="btn btn-primary">▶ Ver Proyecto 1 (Hola Mundo TS)</a>
+      <a href="guia.html" class="btn btn-outline">📖 Ver Guía de Configuración</a>
+    </div>
+  </div>
+</body>
+</html>
