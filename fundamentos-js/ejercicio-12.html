@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 12 - Filtrar números pares</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Ejercicio 12. Filtrar números pares</h1>
+    <p class="subtitulo">filter() + operador resto %</p>
+    <a href="index.html">← Volver al índice</a>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ====== ENUNCIADO (capa 1) ====== -->
+    <section class="tarjeta">
+      <h2>Enunciado</h2>
+      <p>Crea una función que tome un array de números y devuelva un <strong>nuevo array
+        con solo los números pares</strong>. Usa <code>filter()</code> y el operador <code>%</code>.</p>
+      <ul>
+        <li><code>filter()</code> NO modifica el array original: crea uno nuevo.</li>
+        <li>Un número es par si <code>n % 2 === 0</code>.</li>
+        <li>Ejemplo: <code>[1, 2, 3, 4, 5, 6]</code> → <code>[2, 4, 6]</code></li>
+      </ul>
+    </section>
+
+    <!-- ====== ELEMENTOS NECESARIOS (capa 2) ====== -->
+    <section class="tarjeta">
+      <h2>Elementos del ejercicio</h2>
+      <div class="grupo-control">
+        <label for="campo-array">Array (separado por comas):</label>
+        <input type="text" id="campo-array" value="1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 22, 33, 44">
+      </div>
+      <button id="btn-filtrar" class="boton">Filtrar números pares</button>
+      <button id="btn-azar" class="boton">Array aleatorio</button>
+      <button id="btn-limpiar" class="boton secundario">Limpiar</button>
+    </section>
+
+    <!-- ====== RESULTADO EN CAPA DISTINTA (capa 3) ====== -->
+    <section class="tarjeta">
+      <h2>Resultado</h2>
+      <div id="resultado" class="capa-resultado">Array de ejemplo cargado. Pulsa "Filtrar números pares".</div>
+      <p style="margin-top:1rem;">Salida de la consola capturada:</p>
+      <div id="consola" class="capa-consola"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie"><p>Ejercicio 12 - Fundamentos de JavaScript</p></footer>
+
+  <script src="js/consola.js"></script>
+  <script src="js/ejercicio-12.js"></script>
+</body>
+</html>

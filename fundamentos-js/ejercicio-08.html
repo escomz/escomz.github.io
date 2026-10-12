@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 8 - Número aleatorio en un intervalo</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Ejercicio 8. Número aleatorio entre un intervalo</h1>
+    <p class="subtitulo">Función azar(-5, 10) con Math.random() y Math.floor()</p>
+    <a href="index.html">← Volver al índice</a>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ====== ENUNCIADO (capa 1) ====== -->
+    <section class="tarjeta">
+      <h2>Enunciado</h2>
+      <p>Escribe una función que permita generar un <strong>número aleatorio entero</strong>
+        entre un intervalo. Por ejemplo <code>azar(-5, 10)</code>.</p>
+      <p>Ejemplo de salida: <code>3</code></p>
+      <ul>
+        <li>Fórmula: <code>Math.floor(Math.random() * (max - min + 1)) + min</code>.</li>
+        <li>El intervalo se incluye por arriba y por abajo (ambos extremos valen).</li>
+        <li>Funciona también con números negativos.</li>
+      </ul>
+    </section>
+
+    <!-- ====== ELEMENTOS NECESARIOS (capa 2) ====== -->
+    <section class="tarjeta">
+      <h2>Elementos del ejercicio</h2>
+      <div class="grupo-control">
+        <label for="campo-min">Mínimo:</label>
+        <input type="number" id="campo-min" value="-5">
+      </div>
+      <div class="grupo-control">
+        <label for="campo-max">Máximo:</label>
+        <input type="number" id="campo-max" value="10">
+      </div>
+      <button id="btn-azar" class="boton">Generar azar(min, max)</button>
+      <button id="btn-veinte" class="boton">Generar 20 valores seguidos</button>
+      <button id="btn-limpiar" class="boton secundario">Limpiar</button>
+    </section>
+
+    <!-- ====== RESULTADO EN CAPA DISTINTA (capa 3) ====== -->
+    <section class="tarjeta">
+      <h2>Resultado</h2>
+      <div id="resultado" class="capa-resultado">Pulsa un botón para generar valores aleatorios.</div>
+      <p style="margin-top:1rem;">Salida de la consola capturada:</p>
+      <div id="consola" class="capa-consola"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie"><p>Ejercicio 8 - Fundamentos de JavaScript</p></footer>
+
+  <script src="js/consola.js"></script>
+  <script src="js/ejercicio-08.js"></script>
+</body>
+</html>

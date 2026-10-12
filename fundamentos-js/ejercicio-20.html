@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 20 - Mayúsculas y minúsculas</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Ejercicio 20. Mayúsculas y minúsculas</h1>
+    <p class="subtitulo">toUpperCase() y toLowerCase()</p>
+    <a href="index.html">← Volver al índice</a>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ====== ENUNCIADO (capa 1) ====== -->
+    <section class="tarjeta">
+      <h2>Enunciado</h2>
+      <p>Escribe una función que convierta una cadena de texto a <strong>mayúsculas</strong>
+        y luego a <strong>minúsculas</strong>, mostrando ambos resultados.</p>
+      <ul>
+        <li>Usa los métodos <code>toUpperCase()</code> y <code>toLowerCase()</code>.</li>
+        <li>Ambos métodos devuelven una <strong>copia nueva</strong>: no modifican el original.</li>
+        <li>Ej: <code>"Hola"</code> → <code>"HOLA"</code> → <code>"hola"</code>.</li>
+      </ul>
+    </section>
+
+    <!-- ====== ELEMENTOS NECESARIOS (capa 2) ====== -->
+    <section class="tarjeta">
+      <h2>Elementos del ejercicio</h2>
+      <form id="form-texto">
+        <div class="grupo-control">
+          <label for="campo-texto">Cadena de texto:</label>
+          <input type="text" id="campo-texto" value="Desarrollo de Aplicaciones Multiplataforma">
+        </div>
+        <button type="submit" class="boton">Convertir</button>
+        <button type="button" id="btn-invertir-mayus" class="boton secundario">Alternar mayúsculas/minúsculas</button>
+        <button type="button" id="btn-limpiar" class="boton secundario">Limpiar</button>
+      </form>
+    </section>
+
+    <!-- ====== RESULTADO EN CAPA DISTINTA (capa 3) ====== -->
+    <section class="tarjeta">
+      <h2>Resultado</h2>
+      <div id="resultado" class="capa-resultado">Texto cargado. Pulsa "Convertir".</div>
+      <p style="margin-top:1rem;">Salida de la consola capturada:</p>
+      <div id="consola" class="capa-consola"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie"><p>Ejercicio 20 - Fundamentos de JavaScript</p></footer>
+
+  <script src="js/consola.js"></script>
+  <script src="js/ejercicio-20.js"></script>
+</body>
+</html>

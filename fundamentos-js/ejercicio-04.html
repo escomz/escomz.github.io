@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 4 - Suma con prompt()</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Ejercicio 4. Suma de dos números</h1>
+    <p class="subtitulo">prompt() para pedir datos y Number() para convertirlos</p>
+    <a href="index.html">← Volver al índice</a>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ====== ENUNCIADO (capa 1) ====== -->
+    <section class="tarjeta">
+      <h2>Enunciado</h2>
+      <p>Escribe un programa que pida al usuario ingresar dos números y luego muestre la suma.
+        Usa <code>prompt()</code> para pedir datos al usuario y <code>Number()</code> para convertir
+        las entradas a números. Usa <code>console.log()</code> para mostrar el resultado.</p>
+      <ul>
+        <li><code>prompt()</code> devuelve SIEMPRE un <strong>string</strong> (o <code>null</code> si se cancela).</li>
+        <li><code>Number()</code> convierte ese texto a número.</li>
+        <li>Si el texto no es válido, <code>Number()</code> devuelve <code>NaN</code>.</li>
+      </ul>
+    </section>
+
+    <!-- ====== ELEMENTOS NECESARIOS (capa 2) ====== -->
+    <section class="tarjeta">
+      <h2>Elementos del ejercicio</h2>
+      <p>Pulsa el botón para que aparezcan los diálogos <code>prompt()</code>:</p>
+      <button id="btn-pedir" class="boton">Pedir los dos números (prompt)</button>
+      <button id="btn-limpiar" class="boton secundario">Limpiar</button>
+      <p class="aviso">Si prefieres, también puedes probar la versión con campos input del Ejercicio 6.</p>
+    </section>
+
+    <!-- ====== RESULTADO EN CAPA DISTINTA (capa 3) ====== -->
+    <section class="tarjeta">
+      <h2>Resultado</h2>
+      <div id="resultado" class="capa-resultado">Pulsa el botón para introducir los dos números.</div>
+      <p style="margin-top:1rem;">Salida de la consola capturada:</p>
+      <div id="consola" class="capa-consola"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie"><p>Ejercicio 4 - Fundamentos de JavaScript</p></footer>
+
+  <script src="js/consola.js"></script>
+  <script src="js/ejercicio-04.js"></script>
+</body>
+</html>

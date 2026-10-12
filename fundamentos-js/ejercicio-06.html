@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 6 - Par o impar desde un input</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Ejercicio 6. ¿Par o impar? (campo input)</h1>
+    <p class="subtitulo">El mismo programa del Ejercicio 5 pero leyendo un campo del formulario</p>
+    <a href="index.html">← Volver al índice</a>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ====== ENUNCIADO (capa 1) ====== -->
+    <section class="tarjeta">
+      <h2>Enunciado</h2>
+      <p>Crea un programa anterior para que se obtenga el <strong>número de un campo
+        <code>input</code></strong> en lugar de usar <code>prompt()</code>.</p>
+      <ul>
+        <li>Un formulario con un <code>&lt;input type="number"&gt;</code>.</li>
+        <li>Leer el valor con <code>input.value</code> (devuelve texto).</li>
+        <li>Convertir con <code>Number()</code> y comprobar con <code>%</code>.</li>
+        <li>Evitar el envexo tradicional del formulario con <code>preventDefault()</code>.</li>
+      </ul>
+    </section>
+
+    <!-- ====== ELEMENTOS NECESARIOS (capa 2) ====== -->
+    <section class="tarjeta">
+      <h2>Elementos del ejercicio</h2>
+      <!-- Formulario real con label + input + botón -->
+      <form id="form-par-impar">
+        <div class="grupo-control">
+          <label for="campo-numero">Número:</label>
+          <!-- type="number" muestra un teclado numérico y valida entradas -->
+          <input type="number" id="campo-numero" placeholder="Ej: 15" required>
+        </div>
+        <button type="submit" class="boton">Comprobar par/impar</button>
+        <button type="button" id="btn-limpiar" class="boton secundario">Limpiar</button>
+      </form>
+    </section>
+
+    <!-- ====== RESULTADO EN CAPA DISTINTA (capa 3) ====== -->
+    <section class="tarjeta">
+      <h2>Resultado</h2>
+      <div id="resultado" class="capa-resultado">Escribe un número y pulsa el botón.</div>
+      <p style="margin-top:1rem;">Salida de la consola capturada:</p>
+      <div id="consola" class="capa-consola"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie"><p>Ejercicio 6 - Fundamentos de JavaScript</p></footer>
+
+  <script src="js/consola.js"></script>
+  <script src="js/ejercicio-06.js"></script>
+</body>
+</html>

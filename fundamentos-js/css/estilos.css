@@ -1,0 +1,276 @@
+/* ============================================================
+   ESTILOS COMUNES - Ejercicios de repaso de JavaScript (DAM/DAW)
+   Este archivo se usa en TODAS las páginas de los 21 ejercicios.
+   ============================================================ */
+
+/* ---------- Reset básico y tipografía ---------- */
+* {
+  margin: 0;              /* Quitamos el margen por defecto de todos los elementos */
+  padding: 0;             /* Quitamos el relleno por defecto de todos los elementos */
+  box-sizing: border-box; /* Calculamos el ancho incluyendo padding y bordes (más fácil de maquetar) */
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Fuente sans-serif legible */
+  background: linear-gradient(135deg, #1e3a8a 0%, #312e81 50%, #4c1d95 100%); /* Fondo degradado azul-morado */
+  min-height: 100vh;      /* El body ocupa al menos toda la altura de la ventana */
+  color: #1f2937;         /* Color de texto principal (gris oscuro) */
+  line-height: 1.6;       /* Interlineado cómodo para lectura */
+}
+
+/* ---------- Cabecera de la página ---------- */
+.cabecera {
+  background: rgba(255, 255, 255, 0.10); /* Fondo blanco semitransparente */
+  backdrop-filter: blur(8px);             /* Efecto cristal esmerilado detrás */
+  border-bottom: 3px solid #22d3ee;       /* Línea inferior cian */
+  padding: 1.4rem 1rem;                   /* Espaciado interior */
+  text-align: center;                     /* Texto centrado */
+  color: #f8fafc;                         /* Texto blanco clarito */
+}
+
+.cabecera h1 {
+  font-size: 1.8rem;      /* Tamaño grande para el título */
+  margin-bottom: 0.3rem;   /* Espacio debajo del título */
+  letter-spacing: 0.5px;   /* Espaciado entre letras */
+}
+
+.cabecera .subtitulo {
+  font-size: 1rem;         /* Texto secundario más pequeño */
+  color: #a5f3fc;          /* Color cian claro */
+  margin-bottom: 0.6rem;   /* Espacio antes del enlace */
+}
+
+/* Enlaces de navegación (volver al índice, etc.) */
+.cabecera a,
+.nav-enlaces a {
+  color: #fde047;                       /* Amarillo para que destaque */
+  text-decoration: none;                /* Sin subrayado por defecto */
+  font-weight: 600;                     /* Texto en negrita */
+  padding: 0.4rem 0.9rem;               /* Espaciado interior del "botón" enlace */
+  border: 1px solid rgba(253, 224, 71, 0.6); /* Borde amarillo semitransparente */
+  border-radius: 999px;                 /* Bordes totalmente redondeados (píldora) */
+  transition: all 0.2s ease;            /* Transición suave al pasar el ratón */
+}
+
+.cabecera a:hover,
+.nav-enlaces a:hover {
+  background: #fde047;     /* Fondo amarillo al pasar el ratón */
+  color: #1e3a8a;          /* El texto pasa a azul oscuro */
+}
+
+/* ---------- Contenedor principal ---------- */
+.contenedor {
+  max-width: 960px;    /* Ancho máximo para no estirar demasiado el texto */
+  margin: 1.5rem auto;  /* Centrado horizontal con márgenes automáticos */
+  padding: 0 1rem;      /* Respiro lateral */
+  display: flex;        /* Disposición en columna con flexbox */
+  flex-direction: column;
+  gap: 1.4rem;          /* Separación entre tarjetas */
+}
+
+/* ---------- Tarjetas (enunciado, elementos, resultado) ---------- */
+.tarjeta {
+  background: #ffffff;                          /* Fondo blanco */
+  border-radius: 14px;                          /* Esquinas redondeadas */
+  padding: 1.3rem 1.5rem;                       /* Espaciado interior */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);  /* Sombra suave debajo */
+  border-left: 6px solid #22d3ee;               /* Barra lateral cian de acento */
+}
+
+.tarjeta h2 {
+  font-size: 1.25rem;     /* Tamaño del subtítulo */
+  margin-bottom: 0.8rem;  /* Espacio debajo del subtítulo */
+  color: #1e3a8a;         /* Color azul oscuro */
+  border-bottom: 2px dashed #cbd5e1; /* Línea discontinua decorativa */
+  padding-bottom: 0.4rem; /* Espacio para la línea */
+}
+
+.tarjeta p { margin-bottom: 0.6rem; } /* Espacio entre párrafos */
+
+/* Código embebido dentro del enunciado */
+.tarjeta code {
+  background: #eef2ff;               /* Fondo lavado */
+  color: #4338ca;                    /* Texto índigo */
+  padding: 0.1rem 0.4rem;            /* Espaciado interior pequeño */
+  border-radius: 5px;                /* Esquinas redondeadas */
+  font-family: "Fira Code", Consolas, monospace; /* Fuente monoespaciada */
+  font-size: 0.92em;                 /* Un poco más pequeño que el texto normal */
+}
+
+/* Lista de elementos / instrucciones */
+.tarjeta ul {
+  margin-left: 1.3rem;         /* Sangría de la lista */
+  margin-bottom: 0.5rem;
+}
+.tarjeta li { margin-bottom: 0.35rem; } /* Espacio entre elementos de la lista */
+
+/* ---------- Formularios y controles ---------- */
+.grupo-control {
+  display: flex;            /* Fila con el label y el input */
+  flex-wrap: wrap;          /* Se apila en pantallas pequeñas */
+  align-items: center;      /* Alineación vertical centrada */
+  gap: 0.5rem;              /* Espacio entre label e input */
+  margin-bottom: 0.8rem;    /* Espacio debajo de cada grupo */
+}
+
+.grupo-control label {
+  font-weight: 600;         /* Etiqueta en negrita */
+  color: #312e81;           /* Color índigo */
+  min-width: 130px;         /* Ancho mínimo para que queden alineados */
+}
+
+.grupo-control input[type="text"],
+.grupo-control input[type="number"],
+.grupo-control textarea,
+.grupo-control select {
+  padding: 0.5rem 0.75rem;      /* Espaciado interior */
+  border: 2px solid #94a3b8;    /* Borde gris */
+  border-radius: 8px;           /* Esquinas redondeadas */
+  font-size: 1rem;              /* Tamaño de letra normal */
+  min-width: 180px;             /* Ancho mínimo */
+  transition: border-color 0.2s; /* Transición suave del color del borde */
+}
+
+.grupo-control input:focus,
+.grupo-control textarea:focus {
+  border-color: #22d3ee;        /* Borde cian al enfocar el campo */
+  outline: none;                /* Quitamos el contorno azul por defecto */
+  box-shadow: 0 0 0 3px rgba(34, 211, 238, 0.3); /* Halo cian alrededor */
+}
+
+textarea { resize: vertical; min-height: 70px; } /* Permitir estirar en vertical */
+
+/* ---------- Botones ---------- */
+.boton {
+  background: linear-gradient(135deg, #0ea5e9, #6366f1); /* Degradado azul-indigo */
+  color: #ffffff;                /* Texto blanco */
+  border: none;                  /* Sin borde */
+  padding: 0.6rem 1.3rem;        /* Espaciado interior */
+  border-radius: 8px;            /* Esquinas redondeadas */
+  font-size: 1rem;               /* Tamaño de texto */
+  font-weight: 600;              /* Negrita */
+  cursor: pointer;               /* Cursor de mano al pasar */
+  margin: 0.3rem 0.4rem 0.3rem 0; /* Márgenes para separar botones */
+  transition: transform 0.15s ease, box-shadow 0.15s ease; /* Animaciones */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25); /* Sombra del botón */
+}
+
+.boton:hover {                     /* Al pasar el ratón */
+  transform: translateY(-2px);     /* Se eleva un poco */
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35); /* Sombra más grande */
+}
+
+.boton:active { transform: translateY(0); } /* Se hunde al pulsarlo */
+
+.boton.secundario {                /* Segundo estilo para acciones alternativas */
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+}
+
+/* ---------- Capas de resultado (el resultado SIEMPRE en capa distinta) ---------- */
+.capa-resultado {
+  background: #0f172a;                 /* Fondo azul muy oscuro (estilo terminal) */
+  color: #e2e8f0;                      /* Texto gris claro */
+  border-radius: 10px;                 /* Esquinas redondeadas */
+  padding: 1rem;                       /* Espaciado interior */
+  min-height: 70px;                    /* Altura mínima para que nunca quede vacía */
+  font-family: "Fira Code", Consolas, monospace; /* Fuente monoespaciada */
+  font-size: 0.95rem;                  /* Tamaño de letra */
+  white-space: pre-wrap;               /* Respeta saltos de línea del texto */
+  word-break: break-word;              /* Corta palabras largas */
+  border: 1px solid #334155;           /* Borde oscuro */
+}
+
+/* Salida de la consola capturada en pantalla */
+.capa-consola {
+  background: #020617;                 /* Fondo casi negro */
+  color: #94a3b8;                      /* Texto gris medio */
+  border-radius: 10px;
+  padding: 1rem;
+  min-height: 60px;
+  font-family: "Fira Code", Consolas, monospace;
+  font-size: 0.9rem;
+  border: 1px solid #1e293b;
+  max-height: 320px;                   /* Altura máxima con scroll */
+  overflow-y: auto;                    /* Aparece scroll si se desborda */
+}
+
+.capa-consola .linea { display: block; padding: 0.15rem 0; } /* Cada línea de consola */
+
+/* Colores según el método de consola usado */
+.capa-consola .c-log   { color: #e2e8f0; }  /* console.log   -> gris claro */
+.capa-consola .c-info  { color: #38bdf8; }  /* console.info  -> azul */
+.capa-consola .c-error { color: #f87171; }  /* console.error -> rojo */
+.capa-consola .c-debug { color: #a78bfa; }  /* console.debug -> violeta */
+.capa-consola .c-tabla { color: #4ade80; }  /* console.table -> verde */
+
+/* ---------- Tablas (console.table y resultados tabulares) ---------- */
+.tabla-datos {
+  width: 100%;               /* Ocupa todo el ancho disponible */
+  border-collapse: collapse; /* Fusiona bordes de celdas */
+  margin-top: 0.7rem;        /* Espacio arriba */
+  font-size: 0.9rem;         /* Letra un poco más pequeña */
+}
+
+.tabla-datos th,
+.tabla-datos td {
+  border: 1px solid #cbd5e1;   /* Borde gris claro en celdas */
+  padding: 0.4rem 0.6rem;      /* Espaciado interior */
+  text-align: center;          /* Texto centrado */
+}
+
+.tabla-datos thead th {
+  background: #1e3a8a;         /* Cabecera azul */
+  color: #ffffff;              /* Texto blanco */
+}
+
+.tabla-datos tbody tr:nth-child(even) { background: #f1f5f9; } /* Filas alternas gris claro */
+
+/* ---------- Índice de ejercicios ---------- */
+.lista-ejercicios {
+  list-style: none;      /* Quitamos los números/marcadores propios */
+  margin: 0;
+  padding: 0;
+}
+
+.lista-ejercicios li {
+  margin-bottom: 0.6rem; /* Separación entre ejercicios */
+}
+
+.lista-ejercicios a {
+  display: block;                                    /* El enlace ocupa todo el ancho */
+  background: #f8fafc;                               /* Fondo blanco grisáceo */
+  color: #1e3a8a;                                    /* Texto azul */
+  text-decoration: none;                             /* Sin subrayado */
+  padding: 0.7rem 1rem;                              /* Espaciado interior */
+  border-radius: 8px;                                /* Esquinas redondeadas */
+  border-left: 5px solid #22d3ee;                    /* Barra lateral cian */
+  transition: all 0.2s ease;                         /* Transición suave */
+  font-weight: 500;                                  /* Semi-negrita */
+}
+
+.lista-ejercicios a:hover {
+  background: #e0f2fe;                   /* Fondo azul claro al pasar el ratón */
+  border-left-color: #f59e0b;            /* La barra lateral pasa a naranja */
+  transform: translateX(6px);            /* Se desliza un poco a la derecha */
+}
+
+.lista-ejercicios a strong { color: #4338ca; } /* Número del ejercicio en índigo */
+
+/* ---------- Mensajes de ayuda / avisos ---------- */
+.aviso {
+  background: #fffbeb;             /* Fondo amarillo muy claro */
+  border: 1px solid #fcd34d;       /* Borde ámbar */
+  color: #92400e;                  /* Texto marrón oscuro */
+  padding: 0.6rem 0.9rem;          /* Espaciado */
+  border-radius: 8px;              /* Esquinas redondeadas */
+  font-size: 0.9rem;               /* Letra pequeña */
+  margin-top: 0.6rem;              /* Espacio arriba */
+}
+
+/* ---------- Pie de página ---------- */
+.pie {
+  text-align: center;          /* Texto centrado */
+  color: #cbd5e1;              /* Texto gris claro */
+  padding: 1.5rem 1rem 2rem;   /* Espaciado */
+  font-size: 0.85rem;          /* Letra pequeña */
+}

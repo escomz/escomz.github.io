@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 13 - Contar palabras en una frase</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Ejercicio 13. Contar palabras en una frase</h1>
+    <p class="subtitulo">Método split() para dividir la frase en palabras</p>
+    <a href="index.html">← Volver al índice</a>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ====== ENUNCIADO (capa 1) ====== -->
+    <section class="tarjeta">
+      <h2>Enunciado</h2>
+      <p>Escribe un programa que cuente <strong>cuántas palabras tiene una frase</strong>
+        ingresada por el usuario. Usa el método <code>split()</code> para dividir la frase
+        en un array de palabras.</p>
+      <ul>
+        <li><code>frase.split(" ")</code> separa la frase cada vez que hay un espacio.</li>
+        <li><code>array.length</code> da la cantidad de elementos del array.</li>
+        <li>Ej: <code>"hola mundo"</code> → <code>["hola", "mundo"]</code> → 2 palabras.</li>
+      </ul>
+    </section>
+
+    <!-- ====== ELEMENTOS NECESARIOS (capa 2) ====== -->
+    <section class="tarjeta">
+      <h2>Elementos del ejercicio</h2>
+      <form id="form-frase">
+        <div class="grupo-control">
+          <label for="campo-frase">Frase:</label>
+          <!-- textarea permite escribir frases largas con varios renglones -->
+          <textarea id="campo-frase" placeholder="Ej: JavaScript es muy divertido">JavaScript es muy divertido</textarea>
+        </div>
+        <button type="submit" class="boton">Contar palabras</button>
+        <button type="button" id="btn-ejemplo" class="boton">Otra frase de ejemplo</button>
+        <button type="button" id="btn-limpiar" class="boton secundario">Limpiar</button>
+      </form>
+    </section>
+
+    <!-- ====== RESULTADO EN CAPA DISTINTA (capa 3) ====== -->
+    <section class="tarjeta">
+      <h2>Resultado</h2>
+      <div id="resultado" class="capa-resultado">Frase de ejemplo cargada. Pulsa "Contar palabras".</div>
+      <p style="margin-top:1rem;">Salida de la consola capturada:</p>
+      <div id="consola" class="capa-consola"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie"><p>Ejercicio 13 - Fundamentos de JavaScript</p></footer>
+
+  <script src="js/consola.js"></script>
+  <script src="js/ejercicio-13.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 11 - 100 números del 1 al 20</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Ejercicio 11. 100 números del 1 al 20</h1>
+    <p class="subtitulo">Cuenta de los números que al menos han aparecido una vez</p>
+    <a href="index.html">← Volver al índice</a>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ====== ENUNCIADO (capa 1) ====== -->
+    <section class="tarjeta">
+      <h2>Enunciado</h2>
+      <p>Escribe un programa que genere <strong>100 números del 1 al 20</strong>. Debe mostrar
+        la <strong>cuenta de los números que al menos han aparecido una vez</strong>.</p>
+      <ul>
+        <li>Generamos 100 valores aleatorios con <code>Math.floor(Math.random() * 20) + 1</code>.</li>
+        <li>Contamos las apariciones de cada número en un objeto contador.</li>
+        <li>Contamos cuántos números distintos tienen apariciones &gt; 0.</li>
+      </ul>
+    </section>
+
+    <!-- ====== ELEMENTOS NECESARIOS (capa 2) ====== -->
+    <section class="tarjeta">
+      <h2>Elementos del ejercicio</h2>
+      <button id="btn-generar" class="boton">Generar 100 números</button>
+      <button id="btn-tabla" class="boton">Ver lista con console.table()</button>
+      <button id="btn-limpiar" class="boton secundario">Limpiar</button>
+      <p class="aviso">Cada pulsación genera una tirada nueva (los resultados varían).</p>
+    </section>
+
+    <!-- ====== RESULTADO EN CAPA DISTINTA (capa 3) ====== -->
+    <section class="tarjeta">
+      <h2>Resultado</h2>
+      <div id="resultado" class="capa-resultado">Pulsa "Generar 100 números" para comenzar.</div>
+
+      <!-- Tabla con el recuento por número -->
+      <table id="tabla-resultado" class="tabla-datos">
+        <thead>
+          <tr><th>Número</th><th>Apariciones</th><th>¿Ha aparecido?</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+
+      <p style="margin-top:1rem;">Salida de la consola capturada:</p>
+      <div id="consola" class="capa-consola"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie"><p>Ejercicio 11 - Fundamentos de JavaScript</p></footer>
+
+  <script src="js/consola.js"></script>
+  <script src="js/ejercicio-11.js"></script>
+</body>
+</html>

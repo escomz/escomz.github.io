@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 15 - Números primos</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Ejercicio 15. Números primos en un rango</h1>
+    <p class="subtitulo">Función esPrimo(num) para 1..n</p>
+    <a href="index.html">← Volver al índice</a>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ====== ENUNCIADO (capa 1) ====== -->
+    <section class="tarjeta">
+      <h2>Enunciado</h2>
+      <p>Escribe un programa que imprima <strong>todos los números primos entre 1 y un número
+        dado por el usuario</strong>.</p>
+      <ul>
+        <li>Crea una función llamada <code>esPrimo(num)</code> que reciba un número entero.</li>
+        <li>Un número primo solo es divisible exactamente entre 1 y él mismo.</li>
+        <li>Comprobamos divisores desde 2 hasta la raíz cuadrada del número.</li>
+        <li>Ejemplo: hasta 20 → 2, 3, 5, 7, 11, 13, 17, 19</li>
+      </ul>
+    </section>
+
+    <!-- ====== ELEMENTOS NECESARIOS (capa 2) ====== -->
+    <section class="tarjeta">
+      <h2>Elementos del ejercicio</h2>
+      <form id="form-primos">
+        <div class="grupo-control">
+          <label for="campo-limite">Número límite:</label>
+          <input type="number" id="campo-limite" value="50" min="1" required>
+        </div>
+        <button type="submit" class="boton">Buscar primos</button>
+        <button type="button" id="btn-limpiar" class="boton secundario">Limpiar</button>
+      </form>
+    </section>
+
+    <!-- ====== RESULTADO EN CAPA DISTINTA (capa 3) ====== -->
+    <section class="tarjeta">
+      <h2>Resultado</h2>
+      <div id="resultado" class="capa-resultado">Límite cargado: 50. Pulsa "Buscar primos".</div>
+      <p style="margin-top:1rem;">Salida de la consola capturada:</p>
+      <div id="consola" class="capa-consola"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie"><p>Ejercicio 15 - Fundamentos de JavaScript</p></footer>
+
+  <script src="js/consola.js"></script>
+  <script src="js/ejercicio-15.js"></script>
+</body>
+</html>

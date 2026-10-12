@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 10 - Número más grande de un array</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Ejercicio 10. Número más grande de un array</h1>
+    <p class="subtitulo">Math.max() + operador de expansión ...</p>
+    <a href="index.html">← Volver al índice</a>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ====== ENUNCIADO (capa 1) ====== -->
+    <section class="tarjeta">
+      <h2>Enunciado</h2>
+      <p>Crea una función que encuentre el <strong>número más grande</strong> en un array.</p>
+      <ul>
+        <li>Usa el método <code>Math.max()</code> y el operador <code>...</code> para
+          "expandir" el array.</li>
+        <li><code>Math.max(3, 7, 2)</code> devuelve <code>7</code> (recibe argumentos sueltos).</li>
+        <li><code>Math.max(...[3, 7, 2])</code> equivale a <code>Math.max(3, 7, 2)</code>.</li>
+      </ul>
+      <p>Ejemplo: <code>[4, 19, 7, 100, 2]</code> → <code>100</code></p>
+    </section>
+
+    <!-- ====== ELEMENTOS NECESARIOS (capa 2) ====== -->
+    <section class="tarjeta">
+      <h2>Elementos del ejercicio</h2>
+      <div class="grupo-control">
+        <label for="campo-array">Array (separado por comas):</label>
+        <input type="text" id="campo-array" value="4, 19, 7, 100, 2">
+      </div>
+      <button id="btn-calcula" class="boton">Encontrar el máximo</button>
+      <button id="btn-azar" class="boton">Generar array aleatorio</button>
+      <button id="btn-limpiar" class="boton secundario">Limpiar</button>
+    </section>
+
+    <!-- ====== RESULTADO EN CAPA DISTINTA (capa 3) ====== -->
+    <section class="tarjeta">
+      <h2>Resultado</h2>
+      <div id="resultado" class="capa-resultado">Array de ejemplo listo: 4, 19, 7, 100, 2</div>
+      <p style="margin-top:1rem;">Salida de la consola capturada:</p>
+      <div id="consola" class="capa-consola"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie"><p>Ejercicio 10 - Fundamentos de JavaScript</p></footer>
+
+  <script src="js/consola.js"></script>
+  <script src="js/ejercicio-10.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 1 - Variables y tipos de dato</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <!-- Cabecera con título del ejercicio y enlace para volver al índice -->
+  <header class="cabecera">
+    <h1>Ejercicio 1. Variables de varios tipos</h1>
+    <p class="subtitulo">Muestra el contenido y el tipo de dato en consola</p>
+    <a href="index.html">← Volver al índice</a>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ====== ENUNCIADO (capa 1) ====== -->
+    <section class="tarjeta">
+      <h2>Enunciado</h2>
+      <p>Declara variables de varios tipos. Muestra el contenido en la consola junto con
+        el tipo de dato. En este ejercicio utiliza el <code>console.log</code>,
+        <code>console.error</code>, <code>console.info</code> y el <code>console.debug</code>.</p>
+      <ul>
+        <li>Usa <code>let</code> y <code>const</code> (y compara con <code>var</code>).</li>
+        <li>Declara al menos: cadena de texto, número entero, número decimal, booleano,
+          <code>null</code>, <code>undefined</code>, array, objeto y función.</li>
+        <li>Muestra cada valor junto a su tipo con <code>typeof</code>.</li>
+      </ul>
+    </section>
+
+    <!-- ====== ELEMENTOS NECESARIOS (capa 2) ====== -->
+    <section class="tarjeta">
+      <h2>Elementos del ejercicio</h2>
+      <p>Los botones repiten cada tipo de salida de consola para poder verlo en clase:</p>
+      <button id="btn-log" class="boton">console.log()</button>
+      <button id="btn-info" class="boton">console.info()</button>
+      <button id="btn-error" class="boton secundario">console.error()</button>
+      <button id="btn-debug" class="boton secundario">console.debug()</button>
+      <button id="btn-limpiar" class="boton">Limpiar salida</button>
+      <p class="aviso">Abre la consola del navegador (F12) para ver la salida real además de la de la página.</p>
+    </section>
+
+    <!-- ====== RESULTADO EN CAPA DISTINTA (capa 3) ====== -->
+    <section class="tarjeta">
+      <h2>Resultado</h2>
+      <p>Resumen del último mensaje mostrado:</p>
+      <div id="resultado" class="capa-resultado">Pulsa uno de los botones para ver el resultado aquí.</div>
+      <p style="margin-top:1rem;">Salida de la consola capturada:</p>
+      <div id="consola" class="capa-consola"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie"><p>Ejercicio 1 - Fundamentos de JavaScript</p></footer>
+
+  <!-- consola.js debe cargar PRIMERO para capturar console.log, etc. -->
+  <script src="js/consola.js"></script>
+  <!-- Luego se carga el script de este ejercicio -->
+  <script src="js/ejercicio-01.js"></script>
+</body>
+</html>

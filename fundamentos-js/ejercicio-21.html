@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 21 - Filtrar números mayores que un valor</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Ejercicio 21. Filtrar números mayores que un valor</h1>
+    <p class="subtitulo">filter() con condición "&gt; valor"</p>
+    <a href="index.html">← Volver al índice</a>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ====== ENUNCIADO (capa 1) ====== -->
+    <section class="tarjeta">
+      <h2>Enunciado</h2>
+      <p>Escribe una función que tome un array de números y <strong>un valor</strong>, y devuelva
+        un <strong>nuevo array con los números que son mayores que ese valor</strong>.</p>
+      <ul>
+        <li>Usa <code>filter()</code> para crear el nuevo array.</li>
+        <li>La condición de cada elemento es <code>numero &gt; valor</code>.</li>
+        <li>Ejemplo: <code>[3, 8, 1, 20, 5]</code> con valor <code>5</code> → <code>[8, 20]</code></li>
+      </ul>
+    </section>
+
+    <!-- ====== ELEMENTOS NECESARIOS (capa 2) ====== -->
+    <section class="tarjeta">
+      <h2>Elementos del ejercicio</h2>
+      <form id="form-filtro">
+        <div class="grupo-control">
+          <label for="campo-array">Array (separado por comas):</label>
+          <input type="text" id="campo-array" value="3, 8, 1, 20, 5, 14, 7, 42, 9">
+        </div>
+        <div class="grupo-control">
+          <label for="campo-valor">Valores mayores que:</label>
+          <input type="number" id="campo-valor" value="8">
+        </div>
+        <button type="submit" class="boton">Filtrar mayores</button>
+        <button type="button" id="btn-limpiar" class="boton secundario">Limpiar</button>
+      </form>
+    </section>
+
+    <!-- ====== RESULTADO EN CAPA DISTINTA (capa 3) ====== -->
+    <section class="tarjeta">
+      <h2>Resultado</h2>
+      <div id="resultado" class="capa-resultado">Datos cargados. Pulsa "Filtrar mayores".</div>
+      <p style="margin-top:1rem;">Salida de la consola capturada:</p>
+      <div id="consola" class="capa-consola"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie"><p>Ejercicio 21 - Fundamentos de JavaScript</p></footer>
+
+  <script src="js/consola.js"></script>
+  <script src="js/ejercicio-21.js"></script>
+</body>
+</html>

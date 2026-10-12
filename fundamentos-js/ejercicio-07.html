@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 7 - Contar vocales</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Ejercicio 7. Contar vocales en una palabra</h1>
+    <p class="subtitulo">Bucle for + método includes()</p>
+    <a href="index.html">← Volver al índice</a>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ====== ENUNCIADO (capa 1) ====== -->
+    <section class="tarjeta">
+      <h2>Enunciado</h2>
+      <p>Escribe una función que reciba una palabra y cuente cuántas vocales tiene.
+        Usa un <strong>bucle <code>for</code></strong> y la función <code>includes()</code>
+        para verificar si un carácter es una vocal.</p>
+      <ul>
+        <li>Vocales: <code>a e i o u</code> (también en mayúsculas).</li>
+        <li><code>includes()</code> devuelve <code>true</code> si el texto contiene la subcadena.</li>
+        <li><code>charAt(i)</code> obtiene el carácter en la posición <code>i</code>.</li>
+      </ul>
+    </section>
+
+    <!-- ====== ELEMENTOS NECESARIOS (capa 2) ====== -->
+    <section class="tarjeta">
+      <h2>Elementos del ejercicio</h2>
+      <form id="form-vocales">
+        <div class="grupo-control">
+          <label for="campo-palabra">Palabra:</label>
+          <input type="text" id="campo-palabra" placeholder="Ej: JavaScript" required>
+        </div>
+        <button type="submit" class="boton">Contar vocales</button>
+        <button type="button" id="btn-ejemplo" class="boton">Probar ejemplo</button>
+        <button type="button" id="btn-limpiar" class="boton secundario">Limpiar</button>
+      </form>
+    </section>
+
+    <!-- ====== RESULTADO EN CAPA DISTINTA (capa 3) ====== -->
+    <section class="tarjeta">
+      <h2>Resultado</h2>
+      <div id="resultado" class="capa-resultado">Escribe una palabra y pulsa "Contar vocales".</div>
+      <p style="margin-top:1rem;">Salida de la consola capturada:</p>
+      <div id="consola" class="capa-consola"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie"><p>Ejercicio 7 - Fundamentos de JavaScript</p></footer>
+
+  <script src="js/consola.js"></script>
+  <script src="js/ejercicio-07.js"></script>
+</body>
+</html>

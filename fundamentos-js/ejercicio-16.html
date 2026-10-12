@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 16 - Celsius a Fahrenheit</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Ejercicio 16. Celsius a Fahrenheit</h1>
+    <p class="subtitulo">Fórmula: Fahrenheit = (Celsius * 9/5) + 32</p>
+    <a href="index.html">← Volver al índice</a>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ====== ENUNCIADO (capa 1) ====== -->
+    <section class="tarjeta">
+      <h2>Enunciado</h2>
+      <p>Escribe una función que convierta grados <strong>Celsius a Fahrenheit</strong>.
+        La fórmula es:</p>
+      <p><code>Fahrenheit = (Celsius * 9/5) + 32</code></p>
+      <ul>
+        <li>Ejemplo: 0 °C → 32 °F, 100 °C → 212 °F, 37 °C → 98.6 °F.</li>
+        <li>Usamos <code>toFixed(2)</code> para redondear a 2 decimales.</li>
+      </ul>
+    </section>
+
+    <!-- ====== ELEMENTOS NECESARIOS (capa 2) ====== -->
+    <section class="tarjeta">
+      <h2>Elementos del ejercicio</h2>
+      <form id="form-temperatura">
+        <div class="grupo-control">
+          <label for="campo-celsius">Grados Celsius:</label>
+          <input type="number" id="campo-celsius" value="37" step="0.1">
+        </div>
+        <button type="submit" class="boton">Convertir a Fahrenheit</button>
+        <button type="button" id="btn-limpiar" class="boton secundario">Limpiar</button>
+      </form>
+    </section>
+
+    <!-- ====== RESULTADO EN CAPA DISTINTA (capa 3) ====== -->
+    <section class="tarjeta">
+      <h2>Resultado</h2>
+      <div id="resultado" class="capa-resultado">Celsius cargado: 37. Pulsa el botón para convertir.</div>
+      <p style="margin-top:1rem;">Salida de la consola capturada:</p>
+      <div id="consola" class="capa-consola"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie"><p>Ejercicio 16 - Fundamentos de JavaScript</p></footer>
+
+  <script src="js/consola.js"></script>
+  <script src="js/ejercicio-16.js"></script>
+</body>
+</html>

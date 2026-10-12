@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ejercicio 3 - Objeto persona</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+  <header class="cabecera">
+    <h1>Ejercicio 3. Objeto persona</h1>
+    <p class="subtitulo">Todos los tipos de dato con console.log y console.table</p>
+    <a href="index.html">← Volver al índice</a>
+  </header>
+
+  <main class="contenedor">
+
+    <!-- ====== ENUNCIADO (capa 1) ====== -->
+    <section class="tarjeta">
+      <h2>Enunciado</h2>
+      <p>Declara un <strong>objeto persona</strong> con las propiedades más habituales, usando
+        <strong>todos los tipos de datos</strong>, incluido un <strong>array</strong> y
+        <strong>otro objeto</strong>. Muestra el contenido usando <code>console.log</code>
+        y <code>console.table</code>.</p>
+      <ul>
+        <li>Propiedades: nombre (<em>string</em>), edad (<em>number</em>), aprobado (<em>boolean</em>), …</li>
+        <li>Array: notas de las asignaturas.</li>
+        <li>Objeto anidado: dirección con calle, ciudad y código postal.</li>
+        <li>También <code>null</code> y <code>undefined</code> para completar los tipos.</li>
+      </ul>
+    </section>
+
+    <!-- ====== ELEMENTOS NECESARIOS (capa 2) ====== -->
+    <section class="tarjeta">
+      <h2>Elementos del ejercicio</h2>
+      <p>Encabezado y enlace del "mini expediente" de la persona:</p>
+      <h3 id="nombre-persona">—</h3>
+      <p><a id="enlace-correo" href="#">Enviar correo</a></p>
+      <button id="btn-log" class="boton">console.log(objeto)</button>
+      <button id="btn-table" class="boton">console.table(objeto)</button>
+      <button id="btn-limpiar" class="boton secundario">Limpiar</button>
+    </section>
+
+    <!-- ====== RESULTADO EN CAPA DISTINTA (capa 3) ====== -->
+    <section class="tarjeta">
+      <h2>Resultado</h2>
+      <div id="resultado" class="capa-resultado">Pulsa un botón para mostrar el objeto persona.</div>
+      <p style="margin-top:1rem;">Salida de la consola capturada:</p>
+      <div id="consola" class="capa-consola"></div>
+    </section>
+
+  </main>
+
+  <footer class="pie"><p>Ejercicio 3 - Fundamentos de JavaScript</p></footer>
+
+  <script src="js/consola.js"></script>
+  <script src="js/ejercicio-03.js"></script>
+</body>
+</html>
