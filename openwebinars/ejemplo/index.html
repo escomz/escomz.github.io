@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proyecto de ejemplo — OpenWebinars</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="cabecera">
+    <a class="volver" href="../index.html">← OpenWebinars</a>
+    <p class="etiqueta">Proyecto de ejemplo</p>
+    <h1>Contador interactivo</h1>
+    <p class="subtitulo">
+      Demo mínima con HTML, CSS y JavaScript. Copia la carpeta <code>_plantilla</code>
+      para crear tu propio proyecto.
+    </p>
+  </header>
+
+  <main class="contenedor">
+    <section class="tarjeta">
+      <h2>Prueba la interacción</h2>
+      <p>Pulsa los botones y observa cómo cambia el contador y la consola del navegador.</p>
+
+      <div class="contador">
+        <button id="btn-restar" class="boton boton-secundario" type="button" aria-label="Restar uno">−</button>
+        <output id="valor" class="valor" aria-live="polite">0</output>
+        <button id="btn-sumar" class="boton" type="button" aria-label="Sumar uno">+</button>
+      </div>
+
+      <p id="estado" class="estado">Contador inicializado en 0.</p>
+      <button id="btn-reset" class="boton boton-plano" type="button">Reiniciar</button>
+    </section>
+
+    <section class="tarjeta">
+      <h2>Qué demuestra</h2>
+      <ul>
+        <li>Selección de elementos del DOM con <code>document.getElementById</code>.</li>
+        <li>Eventos con <code>addEventListener</code>.</li>
+        <li>Actualización de contenido con <code>textContent</code>.</li>
+        <li>Mensajes de depuración con <code>console.log</code>.</li>
+      </ul>
+    </section>
+
+    <section class="tarjeta">
+      <h2>Siguiente paso</h2>
+      <p>
+        Sigue la <a href="../guia.html">guía paso a paso</a> para duplicar la plantilla
+        y publicar tu propio proyecto dentro de <code>openwebinars/</code>.
+      </p>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <a href="../index.html">Volver a OpenWebinars</a>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

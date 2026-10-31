@@ -802,6 +802,7 @@
     branch: "main",
     tree: [],
     projects: {},
+    projectRoots: [],
     activeProject: null,
     currentFile: null,
     activeMode: "code",
@@ -992,15 +993,48 @@
     }
   }
 
+  /* ── Detección de proyectos ── */
+  // Un proyecto es cualquier carpeta que contenga un index.html.
+  // Esto permite proyectos en la raíz (proyecto1/) y también agrupados
+  // en subcarpetas (openwebinars/mi-proyecto/).
+  function isIgnoredProjectPath(path) {
+    return path.split("/").some(function(segment) {
+      return segment === "node_modules" || segment.charAt(0) === "_";
+    });
+  }
+
+  function findProjectRoots(files) {
+    var roots = {};
+    files.forEach(function(file) {
+      if (isIgnoredProjectPath(file.path)) return;
+      if (file.path === "index.html") {
+        roots[""] = true;
+      } else if (file.path.endsWith("/index.html")) {
+        roots[file.path.slice(0, -"/index.html".length)] = true;
+      }
+    });
+    // Primero las rutas más profundas, para que un proyecto anidado
+    // tenga prioridad sobre la carpeta que lo contiene.
+    return Object.keys(roots).sort(function(a, b) { return b.length - a.length; });
+  }
+
+  function getProjectForPath(filePath) {
+    for (var i = 0; i < state.projectRoots.length; i++) {
+      var root = state.projectRoots[i];
+      if (root === "" || filePath === root || filePath.indexOf(root + "/") === 0) {
+        return root || "Raíz / General";
+      }
+    }
+    return "Raíz / General";
+  }
+
   function analyzeProjects() {
+    state.projectRoots = findProjectRoots(state.tree);
     state.projects = { "Todos los archivos": state.tree.slice() };
 
     state.tree.forEach(function(file) {
-      const parts = file.path.split("/");
-      var group = "Raíz / General";
-      if (parts.length > 1) {
-        group = parts[0];
-      }
+      if (isIgnoredProjectPath(file.path)) return;
+      var group = getProjectForPath(file.path);
       if (!state.projects[group]) {
         state.projects[group] = [];
       }
@@ -1021,6 +1055,8 @@
       
       const card = document.createElement("div");
       card.className = "project-card" + (state.activeProject === group ? " active" : "");
+      card.dataset.project = group;
+      card.title = group;
       
       const info = document.createElement("div");
       info.className = "project-info";
@@ -1028,7 +1064,10 @@
       const title = document.createElement("div");
       title.className = "project-name";
       var icon = group === "Todos los archivos" ? "📂" : (group === "Raíz / General" ? "📄" : "🚀");
-      title.innerHTML = icon + " <strong>" + group + "</strong>";
+      var displayName = (group === "Todos los archivos" || group === "Raíz / General")
+        ? group
+        : group.split("/").join(" / ");
+      title.innerHTML = icon + " <strong>" + displayName + "</strong>";
       
       const meta = document.createElement("div");
       meta.className = "project-meta";
@@ -1062,8 +1101,7 @@
     state.activeProject = groupName;
 
     Array.from(dom.projectList.children).forEach(function(el) {
-      var nameEl = el.querySelector(".project-name strong");
-      if (nameEl && nameEl.textContent === groupName) {
+      if (el.dataset.project === groupName) {
         el.classList.add("active");
       } else {
         el.classList.remove("active");
@@ -1074,8 +1112,7 @@
   }
 
   function selectProjectForFile(filePath) {
-    var parts = filePath.split("/");
-    var group = parts.length > 1 ? parts[0] : "Raíz / General";
+    var group = getProjectForPath(filePath);
     if (state.projects[group]) {
       selectProject(group);
     }

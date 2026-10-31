@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guía: añadir un proyecto — OpenWebinars</title>
+  <style>
+    :root {
+      --primary: #1d3557;
+      --primary-light: #457b9d;
+      --accent: #2cd326;
+      --bg: #f4f5f8;
+      --card: #ffffff;
+      --text: #222;
+      --muted: #666;
+      --border: #e3e6ee;
+      --code-bg: #14213d;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    a { color: var(--primary-light); }
+
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1.25rem 1.5rem;
+    }
+
+    header .wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    header a {
+      color: #dbe7f3;
+      text-decoration: none;
+      font-size: 0.9rem;
+    }
+
+    header a:hover { text-decoration: underline; }
+
+    header strong { font-size: 1rem; }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    h1 {
+      color: var(--primary);
+      font-size: clamp(1.7rem, 5vw, 2.3rem);
+      margin: 0 0 0.5rem;
+    }
+
+    .intro {
+      color: var(--muted);
+      font-size: 1.05rem;
+      margin: 0 0 2rem;
+    }
+
+    section {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 2px 10px rgba(29, 53, 87, 0.04);
+    }
+
+    h2 {
+      color: var(--primary);
+      font-size: 1.2rem;
+      margin: 0 0 0.85rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .step {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.8rem;
+      height: 1.8rem;
+      background: var(--accent);
+      color: #14213d;
+      border-radius: 50%;
+      font-size: 0.95rem;
+      font-weight: 800;
+      flex: none;
+    }
+
+    p { margin: 0.5rem 0; }
+    ul, ol { margin: 0.5rem 0; padding-left: 1.4rem; }
+    li { margin-bottom: 0.3rem; }
+
+    code {
+      background: #f1f3f7;
+      color: #b5174a;
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+      font-size: 0.88em;
+    }
+
+    pre {
+      background: var(--code-bg);
+      color: #e6edf3;
+      padding: 1rem 1.1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.86rem;
+      line-height: 1.55;
+      margin: 0.75rem 0;
+    }
+
+    pre code {
+      background: none;
+      color: inherit;
+      padding: 0;
+      font-size: inherit;
+    }
+
+    .tree {
+      background: #f8f9fc;
+      border: 1px dashed #c8d4e3;
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.86rem;
+      color: #33475f;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .tip {
+      border-left: 4px solid var(--accent);
+      background: #f0fbf0;
+      padding: 0.8rem 1rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+      font-size: 0.92rem;
+    }
+
+    .warn {
+      border-left: 4px solid #f4a261;
+      background: #fff8ec;
+      padding: 0.8rem 1rem;
+      border-radius: 0 8px 8px 0;
+      margin: 1rem 0;
+      font-size: 0.92rem;
+    }
+
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .checklist li::before {
+      content: "☐";
+      margin-right: 0.5rem;
+      color: var(--primary-light);
+      font-weight: 700;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <strong>OpenWebinars · Guía de proyectos</strong>
+      <nav>
+        <a href="index.html">← Volver a OpenWebinars</a>
+        <a href="../visor.html">Visor de código</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <h1>📘 Añadir un proyecto paso a paso</h1>
+    <p class="intro">
+      Cada proyecto nuevo es una carpeta dentro de <code>openwebinars/</code> con su propio
+      <code>index.html</code>. Esta guía usa la plantilla <code>_plantilla/</code> para que solo
+      tengas que cambiar el contenido.
+    </p>
+
+    <section>
+      <h2>🗂️ Estructura final</h2>
+      <div class="tree">openwebinars/
+├── index.html              ← portada con la lista de proyectos
+├── guia.html               ← esta guía
+├── _plantilla/             ← plantilla base (no se publica)
+│   ├── index.html
+│   ├── css/estilos.css
+│   └── js/app.js
+├── ejemplo/                ← proyecto de ejemplo
+│   ├── index.html
+│   ├── css/estilos.css
+│   └── js/app.js
+└── mi-proyecto/            ← el proyecto nuevo
+    ├── index.html
+    ├── css/estilos.css
+    └── js/app.js</div>
+    </section>
+
+    <section>
+      <h2><span class="step">1</span> Duplica la plantilla</h2>
+      <p>
+        Sitúate en la carpeta <code>openwebinars/</code> del repositorio y copia
+        <code>_plantilla</code> con el nombre de tu proyecto. Usa minúsculas, sin espacios
+        ni tildes (mejor guiones): <code>mi-proyecto</code>, <code>ejercicios-dom</code>, etc.
+      </p>
+      <pre><code>cd openwebinars
+cp -r _plantilla mi-proyecto</code></pre>
+      <div class="tip">
+        💡 Si prefieres hacerlo desde el explorador de archivos, copia y pega la carpeta
+        <code>_plantilla</code> y renómbrala.
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="step">2</span> Personaliza el proyecto</h2>
+      <p>Edita estos tres archivos dentro de la carpeta nueva:</p>
+      <ul>
+        <li><code>index.html</code>: cambia el título, el encabezado y el contenido.</li>
+        <li><code>css/estilos.css</code>: adapta colores, tipografía y diseño.</li>
+        <li><code>js/app.js</code>: añade la lógica y los <code>console.log</code> que quieras.</li>
+      </ul>
+      <p>El HTML ya incluye las rutas relativas correctas:</p>
+      <pre><code>&lt;link rel="stylesheet" href="css/estilos.css"&gt;
+&lt;script src="js/app.js"&gt;&lt;/script&gt;</code></pre>
+      <div class="warn">
+        ⚠️ No uses rutas absolutas como <code>/css/estilos.css</code>: el sitio se publica en
+        un subdirectorio y dejarían de funcionar.
+      </div>
+    </section>
+
+    <section>
+      <h2><span class="step">3</span> Añade la tarjeta en la portada</h2>
+      <p>
+        Abre <code>openwebinars/index.html</code> y busca el comentario
+        <code>AÑADIR NUEVO PROYECTO</code>. Copia el bloque de la tarjeta de ejemplo y cámbialo:
+      </p>
+      <pre><code>&lt;a class="card" href="mi-proyecto/"&gt;
+  &lt;span class="icon"&gt;🚀&lt;/span&gt;
+  &lt;h3&gt;Mi proyecto&lt;/h3&gt;
+  &lt;p&gt;Descripción breve de lo que hace el proyecto.&lt;/p&gt;
+  &lt;span class="tag"&gt;HTML · CSS · JS&lt;/span&gt;
+&lt;/a&gt;</code></pre>
+      <p>
+        La ruta del <code>href</code> debe terminar en <code>/</code> y coincidir con el nombre
+        exacto de la carpeta.
+      </p>
+    </section>
+
+    <section>
+      <h2><span class="step">4</span> Pruébalo en local</h2>
+      <p>
+        Desde la raíz del repositorio, levanta un servidor estático. No abras el HTML con
+        doble clic: algunas rutas y peticiones necesitan <code>http://</code>.
+      </p>
+      <pre><code>cd /ruta/a/escomz.github.io
+python3 -m http.server 8000</code></pre>
+      <p>Abre en el navegador:</p>
+      <pre><code>http://localhost:8000/openwebinars/
+http://localhost:8000/openwebinars/mi-proyecto/</code></pre>
+      <p>Comprueba que se ven los estilos, que la consola (F12) no da errores y que los enlaces funcionan.</p>
+    </section>
+
+    <section>
+      <h2><span class="step">5</span> Guarda los cambios en Git</h2>
+      <pre><code>git add openwebinars
+git commit -m "feat(openwebinars): añadir proyecto mi-proyecto"
+git push</code></pre>
+      <p>
+        Si estás trabajando en una rama (por ejemplo con worktrunk), haz push de esa rama y
+        mézclala en <code>main</code> cuando el proyecto esté listo.
+      </p>
+    </section>
+
+    <section>
+      <h2><span class="step">6</span> Comprueba el resultado publicado</h2>
+      <p>GitHub Pages tarda aproximadamente un minuto en publicar los cambios:</p>
+      <pre><code>https://escomz.github.io/openwebinars/
+https://escomz.github.io/openwebinars/mi-proyecto/</code></pre>
+      <p>
+        El <a href="../visor.html">visor de código</a> detecta automáticamente las carpetas
+        que contienen un <code>index.html</code>, también las que están dentro de
+        <code>openwebinars/</code>. No hace falta tocar <code>visor.html</code>.
+      </p>
+    </section>
+
+    <section>
+      <h2><span class="step">✓</span> Lista de comprobación</h2>
+      <ul class="checklist">
+        <li>La carpeta está dentro de <code>openwebinars/</code> y usa minúsculas sin espacios.</li>
+        <li>Existe <code>openwebinars/mi-proyecto/index.html</code>.</li>
+        <li>Las rutas de CSS y JS son relativas.</li>
+        <li>La tarjeta de <code>openwebinars/index.html</code> apunta a <code>mi-proyecto/</code>.</li>
+        <li>Probado en <code>http://localhost:8000/openwebinars/mi-proyecto/</code>.</li>
+        <li>Commit y push realizados; la URL pública responde.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>📌 Reglas rápidas</h2>
+      <ul>
+        <li><strong>Un proyecto = una carpeta con <code>index.html</code>.</strong></li>
+        <li>No subas <code>node_modules/</code> (ya está en <code>.gitignore</code>).</li>
+        <li>Evita carpetas que empiecen por <code>_</code> para proyectos reales: GitHub Pages las ignora (por eso la plantilla no se publica).</li>
+        <li>Si el proyecto necesita compilación (TypeScript, bundlers), sube también el resultado final que consume el navegador.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <a href="index.html">OpenWebinars</a> ·
+    <a href="../visor.html">Visor</a> ·
+    <a href="https://github.com/escomz/escomz.github.io">GitHub</a>
+  </footer>
+</body>
+</html>
